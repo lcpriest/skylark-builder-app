@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 6645244939671075574}
   - component: {fileID: 916587956460323009}
   m_Layer: 0
-  m_Name: Modular Building End
+  m_Name: SKYLARK250_END-M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 1
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 4969171fd5ba24c9494aa4637b96c07d, type: 3}
   Name: Modular Building End
   Description: 
   Category: Floor
@@ -177,8 +177,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   CollisionClippingToleranceWithBuildSurface: 1
-  CollisionClippingTolerance: 0
-  CollisionClippingSnappingTolerance: 0
+  CollisionClippingTolerance: 0.8
+  CollisionClippingSnappingTolerance: 0.8
   CollisionIgnoreCategory: []
   RequireBuildableSurface: 0
   CollisionIgnoreWhenSnap: 0
@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0a9ccc623a60e4afd961256570198c23, type: 3}
       propertyPath: m_Name
-      value: Modular Building End
+      value: SKYLARK250_END-M
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a9ccc623a60e4afd961256570198c23, type: 3}

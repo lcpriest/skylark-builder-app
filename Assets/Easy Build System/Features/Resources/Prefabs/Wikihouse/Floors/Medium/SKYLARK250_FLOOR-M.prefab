@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6672569013497903150}
   - component: {fileID: 435192293426377430}
   m_Layer: 0
-  m_Name: Modular Building Floor
+  m_Name: SKYLARK250_FLOOR-M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 2
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: e326a8d1c8df34ffc92184cf0034e855, type: 3}
   Name: Modular Building Floor
   Description: 
   Category: Floor
@@ -124,8 +124,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   CollisionClippingToleranceWithBuildSurface: 1
-  CollisionClippingTolerance: 0.9
-  CollisionClippingSnappingTolerance: 0.95
+  CollisionClippingTolerance: 0.8
+  CollisionClippingSnappingTolerance: 0.8
   CollisionIgnoreCategory: []
   RequireBuildableSurface: 0
   CollisionIgnoreWhenSnap: 0
