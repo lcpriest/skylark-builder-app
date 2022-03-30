@@ -177,18 +177,18 @@ MonoBehaviour:
   PartOffsets:
   - Piece: {fileID: 5463934313707682640, guid: b92de303697664920ae8fef4d381d5da, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0.159, y: 0.4, z: -0.159}
-    Rotation: {x: 0, y: 90, z: 0}
+    Position: {x: 0, y: 0.4, z: -0.159}
+    Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Piece: {fileID: 5463934313707682640, guid: 64c56b69a97264c7db871e6b0754c247, type: 3}
     AllowSameCategory: 0
-    Position: {x: -0.159, y: 0.4, z: -0.159}
+    Position: {x: 0.159, y: 0.4, z: -0.159}
     Rotation: {x: 0, y: 270, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Piece: {fileID: 5463934313707682640, guid: eb8c6b430fdf047c88eaf4cc6eafcf29, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0.159, y: 0.4, z: -0.159}
-    Rotation: {x: 0, y: 90, z: 0}
+    Position: {x: -0.159, y: 0.4, z: -0.1431}
+    Rotation: {x: 0, y: 270, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}
   IsDisabled: 0
@@ -295,17 +295,17 @@ MonoBehaviour:
   PartOffsets:
   - Piece: {fileID: 5463934313707682640, guid: b92de303697664920ae8fef4d381d5da, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0, y: 0.4, z: -0.159}
-    Rotation: {x: 0, y: 180, z: 0}
+    Position: {x: 0, y: 0.4, z: 0}
+    Rotation: {x: 0, y: 90, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Piece: {fileID: 5463934313707682640, guid: eb8c6b430fdf047c88eaf4cc6eafcf29, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0, y: 0.4, z: 0.159}
+    Position: {x: 0.0159, y: 0.4, z: 0.159}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   - Piece: {fileID: 5463934313707682640, guid: 64c56b69a97264c7db871e6b0754c247, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0, y: 0.4, z: 0.159}
+    Position: {x: 0, y: 0.4, z: -0.159}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}

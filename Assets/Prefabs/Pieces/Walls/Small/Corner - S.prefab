@@ -79,7 +79,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6764046641032327190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.159, y: 2.08, z: -0.159}
+  m_LocalPosition: {x: -0.0159, y: 2.08, z: -0.159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,12 +98,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4dd892cbe0d92b4c897fa540a9de9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.3
+  Radius: 0.5
   ShowRadius: 0
   PartOffsets:
+  - Piece: {fileID: 5368656750666836918, guid: 5709f27124a614bb1aa166a7abdaf978, type: 3}
+    AllowSameCategory: 0
+    Position: {x: 0.159, y: 0, z: -0.159}
+    Rotation: {x: 0, y: 90, z: 0}
+    Scale: {x: 1, y: 1, z: 1}
   - Piece: {fileID: 5368656750666836918, guid: 45a9e1db7a31c4cfea461e83f9aff2ff, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0.302, y: 0, z: -0.159}
+    Position: {x: 0.159, y: 0, z: -0.159}
+    Rotation: {x: 0, y: 90, z: 0}
+    Scale: {x: 1, y: 1, z: 1}
+  - Piece: {fileID: 5368656750666836918, guid: f3fff8486a36c4b5b960d4a8e33b9005, type: 3}
+    AllowSameCategory: 0
+    Position: {x: 0.159, y: 0, z: -0.159}
     Rotation: {x: 0, y: 90, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}
@@ -157,7 +167,7 @@ MonoBehaviour:
   PartOffsets:
   - Piece: {fileID: 8157250560025773459, guid: 60366ba14c4cf4577af8516491f95cb5, type: 3}
     AllowSameCategory: 0
-    Position: {x: -0.017, y: -1.05, z: -0.318}
+    Position: {x: -0.0159, y: -1.05, z: -0.318}
     Rotation: {x: 0, y: 180, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}
@@ -189,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8814528232731713581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.318, y: 0, z: -0.318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -242,8 +252,8 @@ MonoBehaviour:
   Skins: []
   SkinIndex: 0
   MeshBounds:
-    m_Center: {x: -0.0159, y: 1.0500001, z: -0.159}
-    m_Extent: {x: 0.159, y: 1.0500001, z: -0.159}
+    m_Center: {x: -0.016003907, y: 1.0500001, z: -0.15899584}
+    m_Extent: {x: 0.1589961, y: 1.0500001, z: 0.15899587}
   CurrentState: 0
   LastState: 0
   Sockets: []

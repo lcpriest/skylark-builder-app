@@ -47,9 +47,9 @@ MonoBehaviour:
   Radius: 0.25
   ShowRadius: 0
   PartOffsets:
-  - Piece: {fileID: 8157250560025773459, guid: 60366ba14c4cf4577af8516491f95cb5, type: 3}
+  - Piece: {fileID: 8157250560025773459, guid: 8d486b439eac7478da2254985abc5288, type: 3}
     AllowSameCategory: 0
-    Position: {x: 0.3, y: -1.05, z: 0}
+    Position: {x: 0.3, y: -1.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}
@@ -101,9 +101,9 @@ MonoBehaviour:
   Radius: 0.25
   ShowRadius: 0
   PartOffsets:
-  - Piece: {fileID: 8157250560025773459, guid: 60366ba14c4cf4577af8516491f95cb5, type: 3}
+  - Piece: {fileID: 8157250560025773459, guid: 8d486b439eac7478da2254985abc5288, type: 3}
     AllowSameCategory: 0
-    Position: {x: -0.3, y: -1.05, z: 0}
+    Position: {x: -0.3, y: -1.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0}
     Scale: {x: 1, y: 1, z: 1}
   ParentPiece: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 13
   Icon: {fileID: 21300000, guid: f83ae4d37129b4043a60185b4121d088, type: 3}
-  Name: Doorway - S
+  Name: Doorway - XL
   Description: 
   Category: Wall
   IgnoreSocket: 0
@@ -187,8 +187,8 @@ MonoBehaviour:
   Skins: []
   SkinIndex: 0
   MeshBounds:
-    m_Center: {x: 0, y: 1.0500001, z: -0.15900001}
-    m_Extent: {x: 0.6, y: 1.0500001, z: 0.15900001}
+    m_Center: {x: 0, y: 1.500001, z: -0.15900001}
+    m_Extent: {x: 0.6, y: 1.500001, z: 0.15900001}
   CurrentState: 0
   LastState: 0
   Sockets: []
@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975478207098466272, guid: 8c37318ed103a40dbafaf76e67cf105f, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c37318ed103a40dbafaf76e67cf105f, type: 3}

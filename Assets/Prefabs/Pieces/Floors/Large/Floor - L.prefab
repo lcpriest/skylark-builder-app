@@ -81,8 +81,8 @@ MonoBehaviour:
   Skins: []
   SkinIndex: 0
   MeshBounds:
-    m_Center: {x: -0.6002725, y: 0.208, z: -3.018001}
-    m_Extent: {x: 0.6002725, y: 0.208, z: 3.018001}
+    m_Center: {x: -0.30027246, y: 0.208, z: -3.018001}
+    m_Extent: {x: 0.30027246, y: 0.208, z: 3.018001}
   CurrentState: 0
   LastState: 0
   Sockets: []
