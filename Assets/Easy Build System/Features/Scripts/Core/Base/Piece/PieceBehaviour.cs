@@ -23,8 +23,7 @@ using EasyBuildSystem.Features.Scripts.Core.Inspectors;
 namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 {
     [AddComponentMenu("Easy Build System/Components/Piece Behaviour")]
-    public class PieceBehaviour : MonoBehaviour
-    {
+    public class PieceBehaviour : MonoBehaviour {
         #region Fields
 
         public string Id;
@@ -88,10 +87,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         public int EntityInstanceId { get; set; }
 
         private ExternalGeneralCondition generalCondition;
-        public ExternalGeneralCondition GeneralCondition 
-        {
-            get
-            {
+        public ExternalGeneralCondition GeneralCondition  {
+            get {
                 if (generalCondition == null) 
                     generalCondition = GetComponent<ExternalGeneralCondition>(); 
                 
@@ -102,10 +99,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         }
 
         private ExternalCollisionCondition collisionCondition;
-        public ExternalCollisionCondition CollisionCondition
-        {
-            get
-            {
+        public ExternalCollisionCondition CollisionCondition {
+            get {
                 if (collisionCondition == null)
                     collisionCondition = GetComponent<ExternalCollisionCondition>();
 
@@ -116,10 +111,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         }
 
         private ExternalPhysicsCondition physicsCondition;
-        public ExternalPhysicsCondition PhysicsCondition
-        {
-            get
-            {
+        public ExternalPhysicsCondition PhysicsCondition {
+            get {
                 if (physicsCondition == null)
                     physicsCondition = GetComponent<ExternalPhysicsCondition>();
 
@@ -139,8 +132,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
         #region Methods
 
-        private void Awake()
-        {
+        private void Awake() {
             Conditions.AddRange(GetComponents<ConditionBehaviour>());
 
             Sockets = GetComponentsInChildren<SocketBehaviour>();
@@ -156,40 +148,33 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 if (Colliders[i] != Colliders[i])
                     Physics.IgnoreCollision(Colliders[i], Colliders[i]);
 
-            if (GraphicsSettings.currentRenderPipeline)
-            {
+            if (GraphicsSettings.currentRenderPipeline) {
                 if (GraphicsSettings.currentRenderPipeline.GetType().ToString().Contains("HighDefinition"))
                     DefaultPreviewMaterial = Resources.Load<Material>("Materials/HDRP Default Transparent");
                 else
                     DefaultPreviewMaterial = Resources.Load<Material>("Materials/URP Default Transparent");
             }
-            else
-            {
+            else {
                 DefaultPreviewMaterial = new Material(Resources.Load<Material>("Materials/Default Transparent"));
             }
 
             DefaultPreviewMaterial.SetColor("_BaseColor", Color.clear);
 
-            if (CustomPreviewMaterial == null)
-            {
+            if (CustomPreviewMaterial == null) {
                 PreviewMaterial = new Material(DefaultPreviewMaterial);
             }
-            else
-            {
+            else {
                 PreviewMaterial = new Material(CustomPreviewMaterial);
             }
         }
 
-        private void Start()
-        {
-            if (CurrentState != StateType.Preview)
-            {
+        private void Start() {
+            if (CurrentState != StateType.Preview) {
                 BuildManager.Instance.AddPiece(this);
             }
         }
 
-        private void Reset()
-        {
+        private void Reset() {
             if (gameObject.GetComponent<ExternalGeneralCondition>() == null)
                 gameObject.AddComponent<ExternalGeneralCondition>();
 
@@ -197,32 +182,24 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 MeshBounds = gameObject.GetChildsBounds();
         }
 
-        private void Update()
-        {
+        private void Update() {
             bool isPlaced = CurrentState == StateType.Placed;
 
-            if (!isPlaced)
-            {
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+            if (!isPlaced) {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(isPlaced);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = isPlaced;
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = isPlaced;
                     }
                 }
@@ -230,28 +207,22 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 return;
             }
 
-            for (int i = 0; i < Skins.Count; i++)
-            {
-                if (Skins[i] == null)
-                {
+            for (int i = 0; i < Skins.Count; i++) {
+                if (Skins[i] == null) {
                     return;
                 }
 
-                if (i == SkinIndex)
-                {
+                if (i == SkinIndex) {
                     Skins[i].SetActive(true);
                 }
-                else
-                {
+                else {
                     Skins[i].SetActive(false);
                 }
             }
         }
 
-        private void OnDestroy()
-        {
-            if (CurrentState == StateType.Preview)
-            {
+        private void OnDestroy() {
+            if (CurrentState == StateType.Preview) {
                 return;
             }
 
@@ -263,8 +234,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
             BuildManager.Instance.RemovePiece(this);
         }
 
-        private void OnDrawGizmosSelected()
-        {
+        private void OnDrawGizmosSelected() {
             if (!ShowGizmos) return;
 
             Gizmos.color = Color.cyan;
@@ -280,195 +250,153 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to change the piece state (Queue, Preview, Edit, Remove, Placed).
         /// </summary>
-        public void ChangeState(StateType state)
-        {
-            if (BuilderBehaviour.Instance == null)
-            {
+        public void ChangeState(StateType state) {
+            if (BuilderBehaviour.Instance == null) {
                 return;
             }
 
-            if (state == StateType.Queue)
-            {
+            if (state == StateType.Queue) {
                 gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), PreviewMaterial);
                 gameObject.ChangeAllMaterialsColorInChildren(Renderers.ToArray(), PreviewAllowedColor);
 
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(false);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = false;
                     }
                 }
 
                 EnableAllColliders();
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = false;
                     }
                 }
 
-                for (int i = 0; i < Sockets.Length; i++)
-                {
+                for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].EnableSocketCollider();
                     Sockets[i].gameObject.SetActive(true);
                 }
             }
-            else if (state == StateType.Preview)
-            {
+            else if (state == StateType.Preview) {
                 gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), PreviewMaterial);
                 gameObject.ChangeAllMaterialsColorInChildren(Renderers.ToArray(),
                     BuilderBehaviour.Instance.AllowPlacement ? PreviewAllowedColor : PreviewDeniedColor);
 
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(false);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = false;
                     }
                 }
 
                 DisableAllColliders();
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = false;
                     }
                 }
 
-                for (int i = 0; i < Sockets.Length; i++)
-                {
+                for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].DisableSocketCollider();
                     Sockets[i].gameObject.SetActive(false);
                 }
             }
-            else if (state == StateType.Edit)
-            {
+            else if (state == StateType.Edit) {
                 gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), PreviewMaterial);
                 gameObject.ChangeAllMaterialsColorInChildren(Renderers.ToArray(),
                     BuilderBehaviour.Instance.AllowEdition ? PreviewAllowedColor : PreviewDeniedColor);
 
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(false);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = false;
                     }
                 }
 
                 EnableAllColliders();
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = false;
                     }
                 }
 
-                for (int i = 0; i < Sockets.Length; i++)
-                {
+                for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].EnableSocketCollider();
                     Sockets[i].gameObject.SetActive(true);
                 }
             }
-            else if (state == StateType.Remove)
-            {
+            else if (state == StateType.Remove) {
                 gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), PreviewMaterial);
                 gameObject.ChangeAllMaterialsColorInChildren(Renderers.ToArray(), PreviewDeniedColor);
 
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(false);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = false;
                     }
                 }
 
                 EnableAllColliders();
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = false;
                     }
                 }
 
-                for (int i = 0; i < Sockets.Length; i++)
-                {
+                for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].DisableSocketCollider();
                     Sockets[i].gameObject.SetActive(false);
                 }
             }
-            else if (state == StateType.Placed)
-            {
+            else if (state == StateType.Placed) {
                 gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), InitialRenderers);
 
-                for (int i = 0; i < PreviewDisableObjects.Length; i++)
-                {
-                    if (PreviewDisableObjects[i])
-                    {
+                for (int i = 0; i < PreviewDisableObjects.Length; i++) {
+                    if (PreviewDisableObjects[i]) {
                         PreviewDisableObjects[i].SetActive(true);
                     }
                 }
 
-                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
-                {
-                    if (PreviewDisableBehaviours[i])
-                    {
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++) {
+                    if (PreviewDisableBehaviours[i]) {
                         PreviewDisableBehaviours[i].enabled = true;
                     }
                 }
 
                 EnableAllColliders();
 
-                for (int i = 0; i < PreviewDisableColliders.Length; i++)
-                {
-                    if (PreviewDisableColliders[i])
-                    {
+                for (int i = 0; i < PreviewDisableColliders.Length; i++) {
+                    if (PreviewDisableColliders[i]) {
                         PreviewDisableColliders[i].enabled = true;
                     }
                 }
 
-                for (int i = 0; i < Sockets.Length; i++)
-                {
+                for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].EnableSocketCollider();
                     Sockets[i].gameObject.SetActive(true);
                 }
@@ -483,10 +411,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to enable all the colliders of this piece.
         /// </summary>
-        public void EnableAllColliders()
-        {
-            for (int i = 0; i < Colliders.Count; i++)
-            {
+        public void EnableAllColliders() {
+            for (int i = 0; i < Colliders.Count; i++) {
                 Colliders[i].enabled = true;
             }
         }
@@ -494,10 +420,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to disable all the colliders of this piece.
         /// </summary>
-        public void DisableAllColliders()
-        {
-            for (int i = 0; i < Colliders.Count; i++)
-            {
+        public void DisableAllColliders() {
+            for (int i = 0; i < Colliders.Count; i++) {
                 Colliders[i].enabled = false;
             }
         }
@@ -505,10 +429,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to enable all the colliders of this piece.
         /// </summary>
-        public void EnableAllCollidersTrigger()
-        {
-            for (int i = 0; i < Colliders.Count; i++)
-            {
+        public void EnableAllCollidersTrigger() {
+            for (int i = 0; i < Colliders.Count; i++) {
                 Colliders[i].isTrigger = true;
             }
         }
@@ -516,10 +438,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to disable all the colliders of this piece.
         /// </summary>
-        public void DisableAllCollidersTrigger()
-        {
-            for (int i = 0; i < Colliders.Count; i++)
-            {
+        public void DisableAllCollidersTrigger() {
+            for (int i = 0; i < Colliders.Count; i++) {
                 Colliders[i].isTrigger = false;
             }
         }
@@ -527,12 +447,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows check all the external condition(s) before placement.
         /// </summary>
-        public bool CheckExternalPlacementConditions()
-        {
-            for (int i = 0; i < Conditions.Count; i++)
-            {
-                if (!Conditions[i].CheckForPlacement())
-                {
+        public bool CheckExternalPlacementConditions() {
+            for (int i = 0; i < Conditions.Count; i++) {
+                if (!Conditions[i].CheckForPlacement()) {
                     return false;
                 }
             }
@@ -543,12 +460,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows check all the external condition(s) before destruction.
         /// </summary>
-        public bool CheckExternalDestructionConditions()
-        {
-            for (int i = 0; i < Conditions.Count; i++)
-            {
-                if (!Conditions[i].CheckForDestruction())
-                {
+        public bool CheckExternalDestructionConditions() {
+            for (int i = 0; i < Conditions.Count; i++) {
+                if (!Conditions[i].CheckForDestruction()) {
                     return false;
                 }
             }
@@ -559,12 +473,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allow check all the external condition(s) before edition.
         /// </summary>
-        public bool CheckExternalEditionConditions()
-        {
-            for (int i = 0; i < Conditions.Count; i++)
-            {
-                if (!Conditions[i].CheckForEdit())
-                {
+        public bool CheckExternalEditionConditions() {
+            for (int i = 0; i < Conditions.Count; i++) {
+                if (!Conditions[i].CheckForEdit()) {
                     return false;
                 }
             }
@@ -575,15 +486,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
         /// <summary>
         /// This method allows to change the piece appearance.
         /// </summary>
-        public void ChangeSkin(int skinIndex)
-        {
-            if (SkinIndex == skinIndex)
-            {
+        public void ChangeSkin(int skinIndex) {
+            if (SkinIndex == skinIndex) {
                 return;
             }
 
-            if (Skins.Count < skinIndex)
-            {
+            if (Skins.Count < skinIndex) {
                 return;
             }
 
@@ -600,8 +508,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
     [CustomEditor(typeof(PieceBehaviour), true)]
     [CanEditMultipleObjects]
-    public class PieceBehaviourInspector : Editor
-    {
+    public class PieceBehaviourInspector : Editor {
         #region Fields
 
         private PieceBehaviour Target { get { return (PieceBehaviour)target; } }
@@ -615,28 +522,23 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
         #region Methods
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             AddonInspector.LoadAddons(Target, AddonTarget.PieceBehaviour);
             ConditionInspector.LoadConditions(Target, ConditionTarget.PieceBehaviour);
         }
 
-        private void OnSceneGUI()
-        {
-            if (SceneView.lastActiveSceneView.camera == null)
-            {
+        private void OnSceneGUI() {
+            if (SceneView.lastActiveSceneView.camera == null) {
                 return;
             }
 
-            if (Target.UseGroundUpper)
-            {
+            if (Target.UseGroundUpper) {
                 Handles.color = Color.green;
                 Handles.DrawLine(Target.transform.position, Target.transform.position + Vector3.down * Target.GroundUpperHeight);
             }
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             InspectorStyles.DrawSectionLabel("Piece Behaviour - Component");
@@ -648,8 +550,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[0] = EditorGUILayout.Foldout(FoldoutArray[0], "General Settings", true);
 
-            if (FoldoutArray[0])
-            {
+            if (FoldoutArray[0]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("Id"),
                     new GUIContent("Piece Identifier :", "Unique identifier of the piece."));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("Icon"),
@@ -668,8 +569,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[1] = EditorGUILayout.Foldout(FoldoutArray[1], "Preview Settings", true);
 
-            if (FoldoutArray[1])
-            {
+            if (FoldoutArray[1]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("IgnoreSocket"), 
                     new GUIContent("Preview Ignore Sockets :", "If the preview ignore the sockets."));
 
@@ -708,8 +608,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewClampPosition"),
                     new GUIContent("Preview Clamp Position :", "Allows to clamp the preview position."));
 
-                if (serializedObject.FindProperty("PreviewClampPosition").boolValue)
-                {
+                if (serializedObject.FindProperty("PreviewClampPosition").boolValue) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewClampMinPosition"),
                         new GUIContent("Preview Clamp Min Position :", "Preview clamp min position."));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewClampMaxPosition"),
@@ -753,25 +652,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[2] = EditorGUILayout.Foldout(FoldoutArray[2], "Skins Settings", true);
 
-            if (FoldoutArray[2])
-            {
+            if (FoldoutArray[2]) {
                 bool Flag = false;
 
-                if (SkinsFoldout == null)
-                {
+                if (SkinsFoldout == null) {
                     SkinsFoldout = new bool[serializedObject.FindProperty("Skins").arraySize];
                 }
 
-                for (int i = 0; i < serializedObject.FindProperty("Skins").arraySize; i++)
-                {
-                    if (Target.Skins[i] == null)
-                    {
+                for (int i = 0; i < serializedObject.FindProperty("Skins").arraySize; i++) {
+                    if (Target.Skins[i] == null) {
                         Flag = true;
                     }
                 }
 
-                if (Flag)
-                {
+                if (Flag) {
                     Target.Skins.Clear();
                 }
 
@@ -781,16 +675,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 GUILayout.BeginVertical("helpBox");
                 GUI.color = Color.white;
 
-                if (serializedObject.FindProperty("Skins").arraySize == 0)
-                {
+                if (serializedObject.FindProperty("Skins").arraySize == 0) {
                     GUILayout.Label("Skins list does not contains any transform child(s).");
                 }
-                else
-                {
-                    foreach (GameObject Skin in Target.Skins)
-                    {
-                        if (Skin == null)
-                        {
+                else {
+                    foreach (GameObject Skin in Target.Skins) {
+                        if (Skin == null) {
                             return;
                         }
 
@@ -808,8 +698,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                         GUILayout.FlexibleSpace();
 
-                        if (GUILayout.Button("Remove", GUILayout.Width(80)))
-                        {
+                        if (GUILayout.Button("Remove", GUILayout.Width(80))) {
                             Undo.RecordObject(target, "Remove Appearance");
                             Target.Skins.Remove(Skin);
                             Repaint();
@@ -820,40 +709,29 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                         GUILayout.EndHorizontal();
 
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            if (SkinsFoldout[Index] == true)
-                            {
-                                for (int i = 0; i < SkinsFoldout.Length; i++)
-                                {
-                                    if (i != Index)
-                                    {
+                        if (EditorGUI.EndChangeCheck()) {
+                            if (SkinsFoldout[Index] == true) {
+                                for (int i = 0; i < SkinsFoldout.Length; i++) {
+                                    if (i != Index) {
                                         SkinsFoldout[i] = false;
                                     }
                                 }
 
-                                for (int x = 0; x < Target.Skins.Count; x++)
-                                {
-                                    if (x == Index)
-                                    {
+                                for (int x = 0; x < Target.Skins.Count; x++) {
+                                    if (x == Index) {
                                         Target.Skins[x].SetActive(true);
                                     }
-                                    else
-                                    {
+                                    else {
                                         Target.Skins[x].SetActive(false);
                                     }
                                 }
                             }
-                            else
-                            {
-                                for (int x = 0; x < Target.Skins.Count; x++)
-                                {
-                                    if (x == Target.SkinIndex)
-                                    {
+                            else {
+                                for (int x = 0; x < Target.Skins.Count; x++) {
+                                    if (x == Target.SkinIndex) {
                                         Target.Skins[x].SetActive(true);
                                     }
-                                    else
-                                    {
+                                    else {
                                         Target.Skins[x].SetActive(false);
                                     }
                                 }
@@ -864,28 +742,22 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                             SkinsPreview.Clear();
                         }
 
-                        if (Target.SkinIndex == Index)
-                        {
+                        if (Target.SkinIndex == Index) {
                             GUI.enabled = false;
                         }
 
-                        if (GUILayout.Button("Define As Default"))
-                        {
-                            for (int i = 0; i < SkinsFoldout.Length; i++)
-                            {
+                        if (GUILayout.Button("Define As Default")) {
+                            for (int i = 0; i < SkinsFoldout.Length; i++) {
                                 SkinsFoldout[i] = false;
                             }
 
                             Target.ChangeSkin(Index);
 
-                            for (int x = 0; x < Target.Skins.Count; x++)
-                            {
-                                if (x == Target.SkinIndex)
-                                {
+                            for (int x = 0; x < Target.Skins.Count; x++) {
+                                if (x == Target.SkinIndex) {
                                     Target.Skins[x].SetActive(true);
                                 }
-                                else
-                                {
+                                else {
                                     Target.Skins[x].SetActive(false);
                                 }
                             }
@@ -901,27 +773,23 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                         GUILayout.BeginHorizontal();
 
-                        if (SkinsFoldout[Index])
-                        {
+                        if (SkinsFoldout[Index]) {
                             GUILayout.BeginHorizontal();
 
                             GUI.color = Color.black / 4f;
                             GUILayout.BeginVertical("helpBox");
                             GUI.color = Color.white;
 
-                            if (Skin != null)
-                            {
+                            if (Skin != null) {
                                 GUILayout.BeginHorizontal();
 
                                 UnityEditor.Editor PreviewEditor = null;
 
-                                if (SkinsPreview.Count > Index)
-                                {
+                                if (SkinsPreview.Count > Index) {
                                     PreviewEditor = SkinsPreview[Index];
                                 }
 
-                                if (PreviewEditor == null)
-                                {
+                                if (PreviewEditor == null) {
                                     PreviewEditor = CreateEditor(Skin);
 
                                     SkinsPreview.Add(PreviewEditor);
@@ -930,8 +798,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                                     CachedEditors.Add(PreviewEditor);
                                 }
-                                else
-                                {
+                                else {
                                     PreviewEditor.OnPreviewGUI(GUILayoutUtility.GetRect(128, 128), EditorStyles.textArea);
                                 }
 
@@ -963,43 +830,33 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                 GUI.Box(DropRect, "Drag & Drop your transform children(s) here to add them in the list.", EditorStyles.centeredGreyMiniLabel);
 
-                if (DropRect.Contains(UnityEngine.Event.current.mousePosition))
-                {
-                    if (UnityEngine.Event.current.type == EventType.DragUpdated)
-                    {
+                if (DropRect.Contains(UnityEngine.Event.current.mousePosition)) {
+                    if (UnityEngine.Event.current.type == EventType.DragUpdated) {
                         DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
                         UnityEngine.Event.current.Use();
                     }
-                    else if (UnityEngine.Event.current.type == EventType.DragPerform)
-                    {
-                        for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
-                        {
+                    else if (UnityEngine.Event.current.type == EventType.DragPerform) {
+                        for (int i = 0; i < DragAndDrop.objectReferences.Length; i++) {
                             GameObject DraggedObject = DragAndDrop.objectReferences[i] as GameObject;
 
-                            if (DraggedObject == null)
-                            {
+                            if (DraggedObject == null) {
                                 Debug.LogError("<b>Easy Build System</b> : Cannot add empty child!");
                                 return;
                             }
 
-                            if (!DraggedObject.transform.IsChildOf(Target.transform))
-                            {
+                            if (!DraggedObject.transform.IsChildOf(Target.transform)) {
                                 Debug.LogError("<b>Easy Build System</b> : This child does not exist in this transform!");
                                 return;
                             }
 
-                            if (Target.Skins.Contains(DraggedObject) == false)
-                            {
+                            if (Target.Skins.Contains(DraggedObject) == false) {
                                 Target.Skins.Add(DraggedObject);
 
-                                for (int x = 0; x < Target.Skins.Count; x++)
-                                {
-                                    if (x == Target.SkinIndex)
-                                    {
+                                for (int x = 0; x < Target.Skins.Count; x++) {
+                                    if (x == Target.SkinIndex) {
                                         Target.Skins[x].SetActive(true);
                                     }
-                                    else
-                                    {
+                                    else {
                                         Target.Skins[x].SetActive(false);
                                     }
                                 }
@@ -1008,8 +865,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
                                 Repaint();
                             }
-                            else
-                            {
+                            else {
                                 Debug.LogError("<b>Easy Build System</b> : This child already exists in the list!");
                             }
                         }
@@ -1026,13 +882,11 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[3] = EditorGUILayout.Foldout(FoldoutArray[3], "Bounds Settings", true);
 
-            if (FoldoutArray[3])
-            {
+            if (FoldoutArray[3]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("MeshBounds"),
                     new GUIContent("Piece Mesh Bounds :", "Mesh bounds of the piece used to detect the collisions."));
 
-                if (GUILayout.Button("Generate Bounds"))
-                {
+                if (GUILayout.Button("Generate Bounds")) {
                     Undo.RecordObject(target, "Cancel new bounds generation");
                     Target.MeshBounds = Target.gameObject.GetChildsBounds();
                     EditorUtility.SetDirty(target);
@@ -1045,8 +899,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[4] = EditorGUILayout.Foldout(FoldoutArray[4], "Conditions Settings", true);
 
-            if (FoldoutArray[4])
-            {
+            if (FoldoutArray[4]) {
                 ConditionInspector.DrawConditions(Target, ConditionTarget.PieceBehaviour);
             }
 
@@ -1056,8 +909,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[5] = EditorGUILayout.Foldout(FoldoutArray[5], "Add-ons Settings", true);
 
-            if (FoldoutArray[5])
-            {
+            if (FoldoutArray[5]) {
                 AddonInspector.DrawAddons(Target, AddonTarget.PieceBehaviour);
             }
 
@@ -1067,8 +919,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             FoldoutArray[6] = EditorGUILayout.Foldout(FoldoutArray[6], "Debugging Settings", true);
 
-            if (FoldoutArray[6])
-            {
+            if (FoldoutArray[6]) {
                 PieceBehaviour.ShowGizmos = EditorGUILayout.Toggle("Piece Show Gizmos", PieceBehaviour.ShowGizmos);
                 GUI.enabled = false;
                 EditorGUILayout.Toggle("Piece Has Group :", Target.Group != null);
@@ -1094,8 +945,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
             #endregion
 
-            if (GUILayout.Button("Create New Socket..."))
-            {
+            if (GUILayout.Button("Create New Socket...")) {
                 GameObject Child = new GameObject("New Socket Behaviour");
                 Child.transform.SetParent(Selection.activeGameObject.transform, false);
                 Child.transform.position = Selection.activeGameObject.transform.position;
@@ -1103,8 +953,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 SceneHelper.Focus(Child);
             }
 
-            if (GUILayout.Button("Add To Build Manager..."))
-            {
+            if (GUILayout.Button("Add To Build Manager...")) {
                 BuildManager.Instance.Pieces.Add(Target);
                 Debug.Log("<b>Easy Build System</b> : " + Target.Name + " has been added to Build Manager.");
             }

@@ -15,8 +15,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 {
     [RequireComponent(typeof(BuilderBehaviour))]
     [AddComponentMenu("Easy Build System/Builders/Inputs/Builder Input Behaviour")]
-    public class BuilderInput : MonoBehaviour
-    {
+    public class BuilderInput : MonoBehaviour {
         #if EBS_NEW_INPUT_SYSTEM
 
         #region Fields
@@ -53,26 +52,22 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
         #region Methods
 
-        public virtual void OnEnable()
-        {
+        public virtual void OnEnable() {
             Inputs.Building.Enable();
             Inputs.UI.Enable();
         }
 
-        public virtual void OnDisable()
-        {
+        public virtual void OnDisable() {
             Inputs.Building.Disable();
             Inputs.UI.Disable();
         }
 
-        public virtual void OnDestroy()
-        {
+        public virtual void OnDestroy() {
             Inputs.Building.Disable();
             Inputs.UI.Disable();
         }
 
-        public virtual void Awake()
-        {
+        public virtual void Awake() {
             Instance = this;
 
             Inputs = new DemoInputActions();
@@ -80,42 +75,33 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             userInterface = Inputs.UI;
         }
 
-        public virtual void Update()
-        {
+        public virtual void Update() {
             if (IsPointerOverUIElement())
                 return;
 
-            if (UsePlacementMode && building.Placement.triggered)
-            {
+            if (UsePlacementMode && building.Placement.triggered) {
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Placement);
             }
 
-            if (UseDestructionMode && building.Destruction.triggered)
-            {
+            if (UseDestructionMode && building.Destruction.triggered) {
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Destruction);
             }
 
-            if (UseEditMode && building.Edition.triggered)
-            {
+            if (UseEditMode && building.Edition.triggered) {
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Edit);
             }
 
-            if (BuilderBehaviour.Instance.CurrentMode != BuildMode.Placement)
-            {
+            if (BuilderBehaviour.Instance.CurrentMode != BuildMode.Placement) {
                 UpdatePrefabSelection();
             }
 
-            if (building.Cancel.triggered)
-            {
+            if (building.Cancel.triggered) {
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
             }
 
-            if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Placement)
-            {
-                if (building.Validate.triggered)
-                {
-                    if (Time.time > PlacementActionDelay + LastActionTime)
-                    {
+            if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Placement) {
+                if (building.Validate.triggered) {
+                    if (Time.time > PlacementActionDelay + LastActionTime) {
                         LastActionTime = Time.time;
 
                         BuilderBehaviour.Instance.PlacePrefab();
@@ -130,50 +116,38 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
                 float WheelAxis = building.Rotate.ReadValue<float>();
 
-                if (WheelAxis > 0 && !WheelRotationReleased)
-                {
+                if (WheelAxis > 0 && !WheelRotationReleased) {
                     WheelRotationReleased = true;
                     BuilderBehaviour.Instance.RotatePreview(BuilderBehaviour.Instance.SelectedPiece.RotationAxis);
                 }
-                else if (WheelAxis < 0 && !WheelRotationReleased)
-                {
+                else if (WheelAxis < 0 && !WheelRotationReleased) {
                     WheelRotationReleased = true;
                     BuilderBehaviour.Instance.RotatePreview(-BuilderBehaviour.Instance.SelectedPiece.RotationAxis);
                 }
-                else if (WheelAxis == 0)
-                {
+                else if (WheelAxis == 0) {
                     WheelRotationReleased = false;
                 }
 
-                if (building.Cancel.triggered)
-                {
+                if (building.Cancel.triggered) {
                     BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                 }
             }
-            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit)
-            {
-                if (building.Validate.triggered)
-                {
-                    if (Time.time > EditActionDelay + LastActionTime)
-                    {
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit) {
+                if (building.Validate.triggered) {
+                    if (Time.time > EditActionDelay + LastActionTime) {
                         LastActionTime = Time.time;
                         BuilderBehaviour.Instance.EditPrefab();
                     }
                 }
 
-                if (building.Cancel.triggered)
-                {
+                if (building.Cancel.triggered) {
                     BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                 }
             }
-            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Destruction)
-            {
-                if (building.Validate.triggered)
-                {
-                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null)
-                    {
-                        if (Time.time > DestructionActionDelay + LastActionTime)
-                        {
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Destruction) {
+                if (building.Validate.triggered) {
+                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null) {
+                        if (Time.time > DestructionActionDelay + LastActionTime) {
                             LastActionTime = Time.time;
                             BuilderBehaviour.Instance.DestroyPrefab();
 
@@ -183,55 +157,44 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     }
                 }
 
-                if (building.Cancel.triggered)
-                {
+                if (building.Cancel.triggered) {
                     BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                 }
             }
         }
 
-        public virtual void UpdatePrefabSelection()
-        {
+        public virtual void UpdatePrefabSelection() {
             float WheelAxis = building.Switch.ReadValue<float>();
 
-            if (WheelAxis > 0 && !WheelSelectionReleased)
-            {
+            if (WheelAxis > 0 && !WheelSelectionReleased) {
                 WheelSelectionReleased = true;
 
-                if (SelectedIndex < BuildManager.Instance.Pieces.Count - 1)
-                {
+                if (SelectedIndex < BuildManager.Instance.Pieces.Count - 1) {
                     SelectedIndex++;
                 }
-                else
-                {
+                else {
                     SelectedIndex = 0;
                 }
             }
-            else if (WheelAxis < 0 && !WheelSelectionReleased)
-            {
+            else if (WheelAxis < 0 && !WheelSelectionReleased) {
                 WheelSelectionReleased = true;
 
-                if (SelectedIndex > 0)
-                {
+                if (SelectedIndex > 0) {
                     SelectedIndex--;
                 }
-                else
-                {
+                else {
                     SelectedIndex = BuildManager.Instance.Pieces.Count - 1;
                 }
             }
-            else if (WheelAxis == 0)
-            {
+            else if (WheelAxis == 0) {
                 WheelSelectionReleased = false;
             }
 
-            if (SelectedIndex == -1)
-            {
+            if (SelectedIndex == -1) {
                 return;
             }
 
-            if (BuildManager.Instance.Pieces.Count != 0)
-            {
+            if (BuildManager.Instance.Pieces.Count != 0) {
                 BuilderBehaviour.Instance.SelectPrefab(BuildManager.Instance.Pieces[SelectedIndex]);
             }
         }
@@ -239,25 +202,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// Check if the cursor is above a UI element or if the ciruclar menu is open.
         /// </summary>
-        private bool IsPointerOverUIElement()
-        {
-            if (!UIBlocking)
-            {
+        private bool IsPointerOverUIElement() {
+            if (!UIBlocking) {
                 return false;
             }
 
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
+            if (Cursor.lockState == CursorLockMode.Locked) {
                 return false;
             }
 
-            if (EventSystem.current == null)
-            {
+            if (EventSystem.current == null) {
                 return false;
             }
 
-            PointerEventData EventData = new PointerEventData(EventSystem.current)
-            {        
+            PointerEventData EventData = new PointerEventData(EventSystem.current) {
                 position = new Vector2(UnityEngine.InputSystem.Mouse.current.position.x.ReadValue(), UnityEngine.InputSystem.Mouse.current.position.y.ReadValue())
             };
 
@@ -307,8 +265,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
         #region Methods
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
 #if UNITY_EDITOR
 #if ENABLE_INPUT_SYSTEM
 #if !EBS_NEW_INPUT_SYSTEM
@@ -320,8 +277,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 #endif
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (IsPointerOverUIElement())
                 return;
 
@@ -340,12 +296,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             if (Input.GetKeyDown(CancelActionKey))
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
 
-            if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Placement)
-            {
-                if (Input.GetKeyDown(ValidateActionKey))
-                {
-                    if (Time.time > PlacementActionDelay + LastActionTime)
-                    {
+            if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Placement) {
+                if (Input.GetKeyDown(ValidateActionKey)) {
+                    if (Time.time > PlacementActionDelay + LastActionTime) {
                         LastActionTime = Time.time;
 
                         BuilderBehaviour.Instance.PlacePrefab(BuilderBehaviour.Instance.NearestGroup);
@@ -358,8 +311,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     }
                 }
 
-                if (UseMouseWheelForRotation)
-                {
+                if (UseMouseWheelForRotation) {
                     float WheelAxis = Input.GetAxis("Mouse ScrollWheel");
 
                     if (WheelAxis > 0)
@@ -367,8 +319,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     else if (WheelAxis < 0)
                         BuilderBehaviour.Instance.RotatePreview(-BuilderBehaviour.Instance.SelectedPiece.RotationAxis);
                 }
-                else
-                {
+                else {
                     if (Input.GetKeyDown(RotationActionKey))
                         BuilderBehaviour.Instance.RotatePreview(BuilderBehaviour.Instance.SelectedPiece.RotationAxis);
                 }
@@ -376,12 +327,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 if (Input.GetKeyDown(CancelActionKey))
                     BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
             }
-            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit)
-            {
-                if (Input.GetKeyDown(ValidateActionKey))
-                {
-                    if (Time.time > EditActionDelay + LastActionTime)
-                    {
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit) {
+                if (Input.GetKeyDown(ValidateActionKey)) {
+                    if (Time.time > EditActionDelay + LastActionTime) {
                         LastActionTime = Time.time;
                         BuilderBehaviour.Instance.EditPrefab();
                     }
@@ -390,14 +338,10 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 if (Input.GetKeyDown(CancelActionKey))
                     BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
             }
-            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Destruction)
-            {
-                if (Input.GetKeyDown(ValidateActionKey))
-                {
-                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null)
-                    {
-                        if (Time.time > DestructionActionDelay + LastActionTime)
-                        {
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Destruction) {
+                if (Input.GetKeyDown(ValidateActionKey)) {
+                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null) {
+                        if (Time.time > DestructionActionDelay + LastActionTime) {
                             LastActionTime = Time.time;
                             BuilderBehaviour.Instance.DestroyPrefab();
 
@@ -412,21 +356,17 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             }
         }
 
-        private void UpdatePrefabSelection()
-        {
-            if (UseMouseWheelForSelection)
-            {
+        private void UpdatePrefabSelection() {
+            if (UseMouseWheelForSelection) {
                 float WheelAxis = Input.GetAxis("Mouse ScrollWheel");
 
-                if (WheelAxis > 0)
-                {
+                if (WheelAxis > 0) {
                     if (SelectedIndex < BuildManager.Instance.Pieces.Count - 1)
                         SelectedIndex++;
                     else
                         SelectedIndex = 0;
                 }
-                else if (WheelAxis < 0)
-                {
+                else if (WheelAxis < 0) {
                     if (SelectedIndex > 0)
                         SelectedIndex--;
                     else
@@ -439,18 +379,15 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 if (BuildManager.Instance.Pieces.Count != 0)
                     BuilderBehaviour.Instance.SelectPrefab(BuildManager.Instance.Pieces[SelectedIndex]);
             }
-            else
-            {
-                if (Input.GetKeyDown(SelectionPositiveActionKey))
-                {
+            else {
+                if (Input.GetKeyDown(SelectionPositiveActionKey)) {
                     if (SelectedIndex < BuildManager.Instance.Pieces.Count - 1)
                         SelectedIndex++;
                     else
                         SelectedIndex = 0;
                 }
 
-                if (Input.GetKeyDown(SelectionNegativeActionKey))
-                {
+                if (Input.GetKeyDown(SelectionNegativeActionKey)) {
                     if (SelectedIndex > 0)
                         SelectedIndex--;
                     else
@@ -465,25 +402,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             }
         }
 
-        private bool IsPointerOverUIElement()
-        {
-            if (!UIBlocking)
-            {
+        private bool IsPointerOverUIElement() {
+            if (!UIBlocking) {
                 return false;
             }
 
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
+            if (Cursor.lockState == CursorLockMode.Locked) {
                 return false;
             }
 
-            if (EventSystem.current == null)
-            {
+            if (EventSystem.current == null) {
                 return false;
             }
 
-            PointerEventData EventData = new PointerEventData(EventSystem.current)
-            {
+            PointerEventData EventData = new PointerEventData(EventSystem.current) {
                 position = new Vector2(Input.mousePosition.x, Input.mousePosition.y)
             };
 
@@ -499,8 +431,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(BuilderInput), true)]
-    public class BuilderInputEditor : Editor
-    {
+    public class BuilderInputEditor : Editor {
         #region Fields
 
         private static bool[] FoldoutArray = new bool[1];
@@ -509,8 +440,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
         #region Methods
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             InspectorStyles.DrawSectionLabel("Builder Input - Component");
@@ -523,8 +453,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             EditorGUILayout.HelpBox("New Input System was detected, the keyboard inputs have been replaced by the universal inputs.\n" +
                 "You can change the input actions settings in the file.", MessageType.Info);
 
-            if (GUILayout.Button("Edit Input Action Settings..."))
-            {
+            if (GUILayout.Button("Edit Input Action Settings...")) {
                 if (Resources.Load<UnityEngine.InputSystem.InputActionAsset>("Demo - Input Actions") != null)
                     Selection.activeObject = Resources.Load<UnityEngine.InputSystem.InputActionAsset>("Demo - Input Actions");
                 else
@@ -536,16 +465,14 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             FoldoutArray[0] = EditorGUILayout.Foldout(FoldoutArray[0], "General Settings", true);
 
-            if (FoldoutArray[0])
-            {
+            if (FoldoutArray[0]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UIBlocking"),
                     new GUIContent("UI Blocking :", "Avoid using the shortcuts action when the cursor is above a UI element."));
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UsePlacementMode"),
                     new GUIContent("Use Placement Keyboard Shortcut :", "Use placement mode."));
 
-                if (serializedObject.FindProperty("UsePlacementMode").boolValue)
-                {
+                if (serializedObject.FindProperty("UsePlacementMode").boolValue) {
                     EditorGUI.indentLevel = 1;
 
 #if !EBS_NEW_INPUT_SYSTEM
@@ -565,8 +492,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UseDestructionMode"),
                     new GUIContent("Use Destruction Keyboard Shortcut :", "Use destruction mode."));
 
-                if (serializedObject.FindProperty("UseDestructionMode").boolValue)
-                {
+                if (serializedObject.FindProperty("UseDestructionMode").boolValue) {
                     EditorGUI.indentLevel = 1;
 
 #if !EBS_NEW_INPUT_SYSTEM
@@ -586,8 +512,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UseEditMode"),
                     new GUIContent("Use Edit Keyboard Shortcut :", "Use edit mode."));
 
-                if (serializedObject.FindProperty("UseEditMode").boolValue)
-                {
+                if (serializedObject.FindProperty("UseEditMode").boolValue) {
                     EditorGUI.indentLevel = 1;
 
 #if !EBS_NEW_INPUT_SYSTEM
@@ -608,8 +533,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UseMouseWheelForRotation"),
                     new GUIContent("Use Mouse Wheel For Rotation :", "Use the mousewheel for rotate the current preview."));
 
-                if (!serializedObject.FindProperty("UseMouseWheelForRotation").boolValue)
-                {
+                if (!serializedObject.FindProperty("UseMouseWheelForRotation").boolValue) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("RotationActionKey"),
                         new GUIContent("Rotation Action Key :", "Input key for rotate the current preview."));
                 }
@@ -617,8 +541,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("UseMouseWheelForSelection"),
                     new GUIContent("Use Mouse Wheel For Selection :", "Use the mousewheel for the pieces selection."));
 
-                if (!serializedObject.FindProperty("UseMouseWheelForSelection").boolValue)
-                {
+                if (!serializedObject.FindProperty("UseMouseWheelForSelection").boolValue) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("SelectionPositiveActionKey"),
                         new GUIContent("Selection Positive Action Key :", "Input key for pieces selection."));
 

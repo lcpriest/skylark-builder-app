@@ -46,31 +46,24 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public DetectionType SocketDetectionType = DetectionType.Overlap;
         public float SocketDetectionMaxAngles = 35f;
 
-        public virtual Ray GetRay
-        {
-            get
-            {
-                if (RaycastViewType == RaycastType.TopDown)
-                {
+        public virtual Ray GetRay {
+            get {
+                if (RaycastViewType == RaycastType.TopDown) {
 #if EBS_NEW_INPUT_SYSTEM
                     return Camera.ScreenPointToRay(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0f) + RaycastOffsetPosition);
 #else
                     return Camera.ScreenPointToRay(Input.mousePosition + RaycastOffsetPosition);
 #endif
                 }
-                else if (RaycastViewType == RaycastType.FirstPerson)
-                {
+                else if (RaycastViewType == RaycastType.FirstPerson) {
                     return new Ray(Camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f) + RaycastOffsetPosition), Camera.transform.forward);
                 }
-                else if (RaycastViewType == RaycastType.ThirdPerson)
-                {
-                    if (RaycastOriginParent != null && Camera != null)
-                    {
+                else if (RaycastViewType == RaycastType.ThirdPerson) {
+                    if (RaycastOriginParent != null && Camera != null) {
                         return new Ray(RaycastOriginParent.position + RaycastOriginParent.TransformDirection(RaycastOffsetPosition), Camera.transform.forward);
                     }
                 }
-                else if (RaycastViewType == RaycastType.VirtualReality)
-                {
+                else if (RaycastViewType == RaycastType.VirtualReality) {
                     return new Ray(RaycastOriginParent.transform.position, RaycastOriginParent.transform.forward);
                 }
 
@@ -79,16 +72,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         }
 
         private Transform _Caster;
-        public virtual Transform GetCaster
-        {
-            get
-            {
-                if (RaycastViewType == RaycastType.VirtualReality)
-                {
+        public virtual Transform GetCaster {
+            get {
+                if (RaycastViewType == RaycastType.VirtualReality) {
                     _Caster = RaycastOriginParent.transform;
                 }
-                else
-                {
+                else {
                     _Caster = transform;
                 }
 
@@ -142,15 +131,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
         #region Methods
 
-        public virtual void Awake()
-        {
+        public virtual void Awake() {
             Instance = this;
         }
 
-        public virtual void Start()
-        {
-            if (Camera == null)
-            {
+        public virtual void Start() {
+            if (Camera == null) {
                 Camera = GetComponent<Camera>();
 
                 if (Camera == null)
@@ -158,18 +144,15 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             }
         }
 
-        public virtual void Update()
-        {
+        public virtual void Update() {
             if (BuildManager.Instance == null)
                 return;
 
-            if (CurrentMode == BuildMode.Placement)
-            {
+            if (CurrentMode == BuildMode.Placement) {
                 if (SelectedPiece == null)
                     return;
 
-                if (CurrentPreview == null)
-                {
+                if (CurrentPreview == null) {
                     CreatePreview(SelectedPiece.gameObject);
                     return;
                 }
@@ -184,15 +167,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 ClearPreview();
         }
 
-        private void Reset()
-        {
+        private void Reset() {
             Camera = GetComponent<Camera>();
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            if (Camera == null)
-            {
+        private void OnDrawGizmosSelected() {
+            if (Camera == null) {
                 Camera = GetComponent<Camera>();
                 return;
             }
@@ -206,62 +186,49 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to update the placement preview.
         /// </summary>
-        public void UpdatePreview()
-        {
+        public void UpdatePreview() {
             HasSocket = false;
 
-            if (SocketDetectionType == DetectionType.Overlap)
-            {
+            if (SocketDetectionType == DetectionType.Overlap) {
                 SocketBehaviour[] NeighboursSockets =
                     BuildManager.Instance.GetAllNearestSockets(GetCaster.position, RaycastActionDistance);
 
                 SocketBehaviour[] ApplicableSockets = new SocketBehaviour[NeighboursSockets.Length];
 
-                for (int i = 0; i < NeighboursSockets.Length; i++)
-                {
-                    if (NeighboursSockets[i] == null)
-                    {
+                for (int i = 0; i < NeighboursSockets.Length; i++) {
+                    if (NeighboursSockets[i] == null) {
                         continue;
                     }
 
-                    foreach (SocketBehaviour Socket in NeighboursSockets)
-                    {
-                        if (NeighboursSockets[i].gameObject.activeInHierarchy && !Socket.IsDisabled && Socket.AllowPiece(CurrentPreview))
-                        {
+                    foreach (SocketBehaviour Socket in NeighboursSockets) {
+                        if (NeighboursSockets[i].gameObject.activeInHierarchy && !Socket.IsDisabled && Socket.AllowPiece(CurrentPreview)) {
                             ApplicableSockets[i] = NeighboursSockets[i];
                             break;
                         }
                     }
                 }
 
-                if (ApplicableSockets.Length > 0)
-                {
+                if (ApplicableSockets.Length > 0) {
                     UpdateMultipleSocket(ApplicableSockets);
                 }
-                else
-                {
+                else {
                     UpdateFreeMovement();
                 }
             }
-            else if (SocketDetectionType == DetectionType.Raycast)
-            {
+            else if (SocketDetectionType == DetectionType.Raycast) {
                 SocketBehaviour Socket = null;
 
                 int ColliderCount = Physics.RaycastNonAlloc(GetRay, Hits, RaycastActionDistance, LayerMask.GetMask(Constants.LAYER_SOCKET));
-                for (int i = 0; i < ColliderCount; i++)
-                {
-                    if (Hits[i].collider.GetComponent<SocketBehaviour>() != null)
-                    {
+                for (int i = 0; i < ColliderCount; i++) {
+                    if (Hits[i].collider.GetComponent<SocketBehaviour>() != null) {
                         Socket = Hits[i].collider.GetComponent<SocketBehaviour>();
                     }
                 }
 
-                if (Socket != null)
-                {
+                if (Socket != null) {
                     UpdateSingleSocket(Socket);
                 }
-                else
-                {
+                else {
                     UpdateFreeMovement();
                 }
             }
@@ -275,23 +242,18 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to check the internal placement conditions.
         /// </summary>
-        public bool CheckPlacementConditions()
-        {
-            if (CurrentPreview == null)
-            {
+        public bool CheckPlacementConditions() {
+            if (CurrentPreview == null) {
                 return false;
             }
 
-            if (RaycastMaxDistance != 0)
-            {
-                if (Vector3.Distance(GetCaster.position, CurrentPreview.transform.position) > RaycastActionDistance)
-                {
+            if (RaycastMaxDistance != 0) {
+                if (Vector3.Distance(GetCaster.position, CurrentPreview.transform.position) > RaycastActionDistance) {
                     return false;
                 }
             }
 
-            if (!CurrentPreview.CheckExternalPlacementConditions())
-            {
+            if (!CurrentPreview.CheckExternalPlacementConditions()) {
                 return false;
             }
 
@@ -301,8 +263,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to rotate the current preview.
         /// </summary>
-        public void RotatePreview(Vector3 rotateAxis)
-        {
+        public void RotatePreview(Vector3 rotateAxis) {
             if (CurrentPreview == null)
                 return;
 
@@ -312,20 +273,16 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to move the preview in free movement.
         /// </summary>
-        public void UpdateFreeMovement()
-        {
-            if (CurrentPreview == null)
-            {
+        public void UpdateFreeMovement() {
+            if (CurrentPreview == null) {
                 return;
             }
 
-            if (PreviewLockRotation)
-            {
+            if (PreviewLockRotation) {
                 CurrentPreview.transform.rotation = Quaternion.Euler(new Vector3(0, GetCaster.eulerAngles.y, 0)) *
                     SelectedPiece.transform.localRotation * Quaternion.Euler(CurrentPreviewRotationOffset);
             }
-            else
-            {
+            else {
                 CurrentPreview.transform.rotation = Quaternion.Euler(CurrentPreviewRotationOffset);
             }
 
@@ -335,19 +292,15 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer);
 
-            if (Hit.collider != null)
-            {
-                if (Hit.collider.GetComponentInParent<GroupBehaviour>() != null)
-                {
+            if (Hit.collider != null) {
+                if (Hit.collider.GetComponentInParent<GroupBehaviour>() != null) {
                     NearestGroup = Hit.collider.GetComponentInParent<GroupBehaviour>();
                 }
-                else
-                {
+                else {
                     NearestGroup = null;
                 }
 
-                if (CurrentPreview.RotateAccodingSurface)
-                {
+                if (CurrentPreview.RotateAccodingSurface) {
                     CurrentPreviewRotationOffset = Quaternion.LookRotation(Hit.normal).eulerAngles;
                 }
 
@@ -362,16 +315,13 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 else if (PreviewMovementType == MovementType.Grid && !CurrentPreview.IgnoreGrid)
                     NextPoint = MathExtension.PositionToGridPosition(PreviewGridSize, PreviewGridOffset, NextPoint);
 
-                if (PreviewMovementOnlyAllowed)
-                {
+                if (PreviewMovementOnlyAllowed) {
                     CurrentPreview.transform.position = NextPoint;
 
-                    if (CurrentPreview.CheckExternalPlacementConditions() && CheckPlacementConditions())
-                    {
+                    if (CurrentPreview.CheckExternalPlacementConditions() && CheckPlacementConditions()) {
                         LastAllowedPoint = CurrentPreview.transform.position;
                     }
-                    else
-                    {
+                    else {
                         CurrentPreview.transform.position = LastAllowedPoint;
                     }
                 }
@@ -380,17 +330,13 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
                 float Angle = Vector3.Angle(Hit.normal, Vector3.up);
 
-                if (CurrentPreview.RotateAccordingSlope)
-                {
-                    if (Angle < CurrentPreview.RotateAccordingSlopeAngleLimition)
-                    {
-                        if (PreviewLockRotation)
-                        {
+                if (CurrentPreview.RotateAccordingSlope) {
+                    if (Angle < CurrentPreview.RotateAccordingSlopeAngleLimition) {
+                        if (PreviewLockRotation) {
                             CurrentPreview.transform.rotation = Quaternion.FromToRotation(GetCaster.up, Hit.normal) * Quaternion.Euler(CurrentPreviewRotationOffset) *
                                 GetCaster.rotation * SelectedPiece.transform.localRotation * Quaternion.Euler(CurrentPreviewRotationOffset);
                         }
-                        else
-                        {
+                        else {
                             CurrentPreview.transform.rotation = Quaternion.FromToRotation(new Vector3(0, GetCaster.eulerAngles.y, 0), Hit.normal) * 
                                 SelectedPiece.transform.localRotation * Quaternion.Euler(CurrentPreviewRotationOffset);
                         }
@@ -403,28 +349,23 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             Transform StartTransform = (CurrentPreview.GroundUpperHeight == 0) ? GetCaster : Camera.transform;
             Vector3 LookDistance = StartTransform.position + StartTransform.forward * Distance;
 
-            if (CurrentPreview.UseGroundUpper)
-            {
+            if (CurrentPreview.UseGroundUpper) {
                 LookDistance.y = Mathf.Clamp(LookDistance.y, CurrentPreview.GroundUpperHeight,
                     GetCaster.position.y + CurrentPreview.GroundUpperHeight);
             }
-            else
-            {
+            else {
                 if (Physics.Raycast(CurrentPreview.transform.position + new Vector3(0, 0.3f, 0),
-                        Vector3.down, out RaycastHit HitLook, Mathf.Infinity, RaycastLayer, QueryTriggerInteraction.Ignore))
-                {
+                        Vector3.down, out RaycastHit HitLook, Mathf.Infinity, RaycastLayer, QueryTriggerInteraction.Ignore)) {
                     LookDistance.y = HitLook.point.y;
                 }
             }
 
             CurrentPreview.transform.position = LookDistance;
 
-            if (PreviewMovementType == MovementType.Grid && !CurrentPreview.IgnoreGrid)
-            {
+            if (PreviewMovementType == MovementType.Grid && !CurrentPreview.IgnoreGrid) {
                 CurrentPreview.transform.position = MathExtension.PositionToGridPosition(PreviewGridSize, PreviewGridOffset, LookDistance + CurrentPreview.PreviewOffset);
             }
-            else if (PreviewMovementType == MovementType.Smooth)
-            {
+            else if (PreviewMovementType == MovementType.Smooth) {
                 CurrentPreview.transform.position = Vector3.Lerp(CurrentPreview.transform.position, LookDistance, PreviewSmoothTime * Time.deltaTime);
             }
 
@@ -436,10 +377,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to move the preview only on available socket(s).
         /// </summary>
-        public void UpdateMultipleSocket(SocketBehaviour[] sockets)
-        {
-            if (CurrentPreview == null || sockets == null)
-            {
+        public void UpdateMultipleSocket(SocketBehaviour[] sockets) {
+            if (CurrentPreview == null || sockets == null) {
                 return;
             }
 
@@ -452,29 +391,21 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             if (RaycastViewType == RaycastType.TopDown)
                 Physics.Raycast(GetRay, out raycastTopDown, Mathf.Infinity, LayerMask.GetMask(Constants.LAYER_SOCKET), QueryTriggerInteraction.Ignore);
 
-            foreach (SocketBehaviour Socket in sockets)
-            {
-                if (Socket != null)
-                {
-                    if (Socket.gameObject.activeSelf && !Socket.IsDisabled)
-                    {
-                        if (Socket.AllowPiece(CurrentPreview) && !CurrentPreview.IgnoreSocket)
-                        {
+            foreach (SocketBehaviour Socket in sockets) {
+                if (Socket != null) {
+                    if (Socket.gameObject.activeSelf && !Socket.IsDisabled) {
+                        if (Socket.AllowPiece(CurrentPreview) && !CurrentPreview.IgnoreSocket) {
                             if ((Socket.transform.position - (RaycastViewType != RaycastType.TopDown ? GetCaster.position : raycastTopDown.point)).sqrMagnitude <
-                                Mathf.Pow(RaycastViewType != RaycastType.TopDown ? RaycastActionDistance : RaycastTopDownSnapThreshold, 2))
-                            {
+                                Mathf.Pow(RaycastViewType != RaycastType.TopDown ? RaycastActionDistance : RaycastTopDownSnapThreshold, 2)) {
                                 float angle = Vector3.Angle(GetRay.direction, Socket.transform.position - GetRay.origin);
 
-                                if (angle < closestAngle && angle < SocketDetectionMaxAngles)
-                                {
+                                if (angle < closestAngle && angle < SocketDetectionMaxAngles) {
                                     closestAngle = angle;
 
-                                    if (RaycastViewType != RaycastType.TopDown && CurrentSocket == null)
-                                    {
+                                    if (RaycastViewType != RaycastType.TopDown && CurrentSocket == null) {
                                         CurrentSocket = Socket;
                                     }
-                                    else
-                                    {
+                                    else {
                                         CurrentSocket = Socket;
                                     }
                                 }
@@ -484,34 +415,28 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 }
             }
 
-            if (CurrentSocket != null)
-            {
+            if (CurrentSocket != null) {
                 Offset OffsetPiece = CurrentSocket.GetOffset(CurrentPreview);
 
-                if (OffsetPiece != null)
-                {
+                if (OffsetPiece != null) {
                     CurrentPreview.transform.position = CurrentSocket.transform.position + CurrentSocket.transform.TransformVector(OffsetPiece.Position);
 
                     CurrentPreview.transform.rotation = CurrentSocket.transform.rotation *
                         (CurrentPreview.RotateOnSockets ? Quaternion.Euler(OffsetPiece.Rotation + CurrentPreviewRotationOffset) : Quaternion.Euler(OffsetPiece.Rotation));
 
-                    if (OffsetPiece.Scale != Vector3.one)
-                    {
+                    if (OffsetPiece.Scale != Vector3.one) {
                         CurrentPreview.transform.localScale = OffsetPiece.Scale * 1.005f;
                     }
-                    else
-                    {
+                    else {
                         CurrentPreview.transform.localScale = CurrentSocket.transform.parent != null ? CurrentSocket.transform.parent.localScale * 1.005f : transform.localScale * 1.005f;
                     }
 
                     HasSocket = true;
 
-                    if (!CheckPlacementConditions())
-                    {
+                    if (!CheckPlacementConditions()) {
                         HasSocket = false;
                     }
-                    else
-                    {
+                    else {
                         LastSocket = CurrentSocket;
                         HasSocket = true;
                         return;
@@ -527,50 +452,40 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to move the preview only on available socket.
         /// </summary>
-        public void UpdateSingleSocket(SocketBehaviour socket)
-        {
-            if (CurrentPreview == null || socket == null)
-            {
+        public void UpdateSingleSocket(SocketBehaviour socket) {
+            if (CurrentPreview == null || socket == null) {
                 return;
             }
 
             CurrentSocket = null;
 
-            if (socket != null)
-            {
-                if (socket.gameObject.activeSelf && !socket.IsDisabled)
-                {
-                    if (socket.AllowPiece(CurrentPreview) && !CurrentPreview.IgnoreSocket)
-                    {
+            if (socket != null) {
+                if (socket.gameObject.activeSelf && !socket.IsDisabled) {
+                    if (socket.AllowPiece(CurrentPreview) && !CurrentPreview.IgnoreSocket) {
                         CurrentSocket = socket;
                     }
                 }
             }
 
-            if (CurrentSocket != null)
-            {
+            if (CurrentSocket != null) {
                 Offset Offset = CurrentSocket.GetOffset(CurrentPreview);
 
-                if (Offset != null)
-                {
+                if (Offset != null) {
                     CurrentPreview.transform.position = CurrentSocket.transform.position + CurrentSocket.transform.TransformVector(Offset.Position);
 
                     CurrentPreview.transform.rotation = CurrentSocket.transform.rotation *
                         (CurrentPreview.RotateOnSockets ? Quaternion.Euler(Offset.Rotation + CurrentPreviewRotationOffset) : Quaternion.Euler(Offset.Rotation));
 
-                    if (Offset.Scale != Vector3.one)
-                    {
+                    if (Offset.Scale != Vector3.one) {
                         CurrentPreview.transform.localScale = Offset.Scale * 1.005f;
                     }
 
                     HasSocket = true;
 
-                    if (!CheckPlacementConditions())
-                    {
+                    if (!CheckPlacementConditions()) {
                         HasSocket = false;
                     }
-                    else
-                    {
+                    else {
                         LastSocket = CurrentSocket;
                         HasSocket = true;
                         return;
@@ -584,17 +499,14 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to place the current preview.
         /// </summary>
-        public virtual void PlacePrefab(GroupBehaviour group = null)
-        {       
+        public virtual void PlacePrefab(GroupBehaviour group = null) {
             AllowPlacement = CheckPlacementConditions();
 
-            if (!AllowPlacement)
-            {
+            if (!AllowPlacement) {
                 return;
             }
 
-            if (CurrentEditionPreview != null)
-            {
+            if (CurrentEditionPreview != null) {
                 Destroy(CurrentEditionPreview.gameObject);
             }
 
@@ -605,10 +517,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 group,
                 CurrentSocket);
 
-            if (Source != null)
-            {
-                if (PlacementClips.Length != 0)
-                {
+            if (Source != null) {
+                if (PlacementClips.Length != 0) {
                     Source.PlayOneShot(PlacementClips[UnityEngine.Random.Range(0, PlacementClips.Length)]);
                 }
             }
@@ -618,8 +528,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             AllowPlacement = false;
             HasSocket = false;
 
-            if (CurrentPreview != null)
-            {
+            if (CurrentPreview != null) {
                 if (!CurrentPreview.KeepLastRotation)
                     CurrentPreviewRotationOffset = Vector3.zero;
 
@@ -630,23 +539,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to create a preview.
         /// </summary>
-        public virtual PieceBehaviour CreatePreview(GameObject prefab)
-        {
+        public virtual PieceBehaviour CreatePreview(GameObject prefab) {
             if (prefab == null)
                 return null;
 
             CurrentPreview = Instantiate(prefab).GetComponent<PieceBehaviour>();
 
-            if (!CurrentPreview.KeepLastRotation)
-            {
+            if (!CurrentPreview.KeepLastRotation) {
                 CurrentPreview.transform.eulerAngles = Vector3.zero;
                 CurrentPreviewRotationOffset = Vector3.zero;
             }
 
             CurrentPreviewInitialScale = CurrentPreview.transform.localScale;
 
-            if (Physics.Raycast(GetRay, out RaycastHit Hit, Mathf.Infinity, RaycastLayer, QueryTriggerInteraction.Ignore))
-            {
+            if (Physics.Raycast(GetRay, out RaycastHit Hit, Mathf.Infinity, RaycastLayer, QueryTriggerInteraction.Ignore)) {
                 CurrentPreview.transform.position = Hit.point;
             }
 
@@ -670,10 +576,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to clear the current preview.
         /// </summary>
-        public virtual void ClearPreview()
-        {
-            if (CurrentPreview == null)
-            {
+        public virtual void ClearPreview() {
+            if (CurrentPreview == null) {
                 return;
             }
 
@@ -693,45 +597,36 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to update the destruction preview.
         /// </summary>
-        public void UpdateRemovePreview()
-        {
+        public void UpdateRemovePreview() {
             float Distance = RaycastMaxDistance == 0 ? RaycastActionDistance : RaycastMaxDistance;
 
-            if (CurrentRemovePreview != null)
-            {
+            if (CurrentRemovePreview != null) {
                 if (CurrentRemovePreview.CurrentState != StateType.Remove)
                     CurrentRemovePreview.ChangeState(StateType.Remove);
 
                 AllowPlacement = false;
             }
 
-            if (Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer))
-            {
+            if (Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer)) {
                 PieceBehaviour Part = Hit.collider.GetComponentInParent<PieceBehaviour>();
 
-                if (Part != null)
-                {
-                    if (CurrentRemovePreview != null)
-                    {
-                        if (CurrentRemovePreview.GetInstanceID() != Part.GetInstanceID())
-                        {
+                if (Part != null) {
+                    if (CurrentRemovePreview != null) {
+                        if (CurrentRemovePreview.GetInstanceID() != Part.GetInstanceID()) {
                             ClearRemovePreview();
 
                             CurrentRemovePreview = Part;
                         }
                     }
-                    else
-                    {
+                    else {
                         CurrentRemovePreview = Part;
                     }
                 }
-                else
-                {
+                else {
                     ClearRemovePreview();
                 }
             }
-            else
-            {
+            else {
                 ClearRemovePreview();
             }
         }
@@ -739,15 +634,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to check the internal destruction conditions.
         /// </summary>
-        public bool CheckDestructionConditions()
-        {
-            if (CurrentRemovePreview == null)
-            {
+        public bool CheckDestructionConditions() {
+            if (CurrentRemovePreview == null) {
                 return false;
             }
 
-            if (!CurrentRemovePreview.CheckExternalDestructionConditions())
-            {
+            if (!CurrentRemovePreview.CheckExternalDestructionConditions()) {
                 return false;
             }
 
@@ -757,21 +649,17 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to remove the current preview.
         /// </summary>
-        public virtual void DestroyPrefab()
-        {
+        public virtual void DestroyPrefab() {
             AllowDestruction = CheckDestructionConditions();
 
-            if (!AllowDestruction)
-            {
+            if (!AllowDestruction) {
                 return;
             }
 
             BuildManager.Instance.DestroyPrefab(CurrentRemovePreview);
 
-            if (Source != null)
-            {
-                if (DestructionClips.Length != 0)
-                {
+            if (Source != null) {
+                if (DestructionClips.Length != 0) {
                     Source.PlayOneShot(DestructionClips[UnityEngine.Random.Range(0, DestructionClips.Length)]);
                 }
             }
@@ -785,10 +673,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to clear the current remove preview.
         /// </summary>
-        public virtual void ClearRemovePreview()
-        {
-            if (CurrentRemovePreview == null)
-            {
+        public virtual void ClearRemovePreview() {
+            if (CurrentRemovePreview == null) {
                 return;
             }
 
@@ -806,45 +692,36 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to update the edition mode.
         /// </summary>
-        public void UpdateEditionPreview()
-        {
+        public void UpdateEditionPreview() {
             AllowEdition = CurrentEditionPreview;
 
-            if (CurrentEditionPreview != null && AllowEdition)
-            {
+            if (CurrentEditionPreview != null && AllowEdition) {
                 if (CurrentEditionPreview.CurrentState != StateType.Edit)
                     CurrentEditionPreview.ChangeState(StateType.Edit);
             }
 
             float Distance = RaycastMaxDistance == 0 ? RaycastActionDistance : RaycastMaxDistance;
 
-            if (Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer))
-            {
+            if (Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer)) {
                 PieceBehaviour Piece = Hit.collider.GetComponentInParent<PieceBehaviour>();
 
-                if (Piece != null)
-                {
-                    if (CurrentEditionPreview != null)
-                    {
-                        if (CurrentEditionPreview.GetInstanceID() != Piece.GetInstanceID())
-                        {
+                if (Piece != null) {
+                    if (CurrentEditionPreview != null) {
+                        if (CurrentEditionPreview.GetInstanceID() != Piece.GetInstanceID()) {
                             ClearEditPreview();
 
                             CurrentEditionPreview = Piece;
                         }
                     }
-                    else
-                    {
+                    else {
                         CurrentEditionPreview = Piece;
                     }
                 }
-                else
-                {
+                else {
                     ClearEditPreview();
                 }
             }
-            else
-            {
+            else {
                 ClearEditPreview();
             }
         }
@@ -852,15 +729,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to check the internal edition conditions.
         /// </summary>
-        public bool CheckEditionConditions()
-        {
-            if (CurrentEditionPreview == null)
-            {
+        public bool CheckEditionConditions() {
+            if (CurrentEditionPreview == null) {
                 return false;
             }
 
-            if (!CurrentEditionPreview.CheckExternalEditionConditions())
-            {
+            if (!CurrentEditionPreview.CheckExternalEditionConditions()) {
                 return false;
             }
 
@@ -870,8 +744,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to edit the current preview.
         /// </summary>
-        public virtual void EditPrefab()
-        {
+        public virtual void EditPrefab() {
             AllowEdition = CheckEditionConditions();
 
             if (!AllowEdition)
@@ -891,10 +764,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to clear the current edition preview.
         /// </summary>
-        public void ClearEditPreview()
-        {
-            if (CurrentEditionPreview == null)
-            {
+        public void ClearEditPreview() {
+            if (CurrentEditionPreview == null) {
                 return;
             }
 
@@ -910,25 +781,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to change mode.
         /// </summary>
-        public void ChangeMode(BuildMode mode)
-        {
-            if (CurrentMode == mode)
-            {
+        public void ChangeMode(BuildMode mode) {
+            if (CurrentMode == mode) {
                 return;
             }
 
-            if (CurrentMode == BuildMode.Placement)
-            {
+            if (CurrentMode == BuildMode.Placement) {
                 ClearPreview();
             }
 
-            if (CurrentMode == BuildMode.Destruction)
-            {
+            if (CurrentMode == BuildMode.Destruction) {
                 ClearRemovePreview();
             }
 
-            if (mode == BuildMode.None)
-            {
+            if (mode == BuildMode.None) {
                 ClearPreview();
                 ClearRemovePreview();
                 ClearEditPreview();
@@ -944,25 +810,20 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to change mode.
         /// </summary>
-        public void ChangeMode(string modeName)
-        {
-            if (CurrentMode.ToString() == modeName)
-            {
+        public void ChangeMode(string modeName) {
+            if (CurrentMode.ToString() == modeName) {
                 return;
             }
 
-            if (CurrentMode == BuildMode.Placement)
-            {
+            if (CurrentMode == BuildMode.Placement) {
                 ClearPreview();
             }
 
-            if (CurrentMode == BuildMode.Destruction)
-            {
+            if (CurrentMode == BuildMode.Destruction) {
                 ClearRemovePreview();
             }
 
-            if (modeName == BuildMode.None.ToString())
-            {
+            if (modeName == BuildMode.None.ToString()) {
                 ClearPreview();
                 ClearRemovePreview();
                 ClearEditPreview();
@@ -978,10 +839,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to select a prefab.
         /// </summary>
-        public void SelectPrefab(PieceBehaviour prefab)
-        {
-            if (prefab == null)
-            {
+        public void SelectPrefab(PieceBehaviour prefab) {
+            if (prefab == null) {
                 return;
             }
 
@@ -1004,13 +863,11 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
         #region Methods
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             AddonInspector.LoadAddons(Target, AddonTarget.BuilderBehaviour);
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             InspectorStyles.DrawSectionLabel("Builder Behaviour - Component");
@@ -1024,8 +881,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             FoldoutArray[0] = EditorGUILayout.Foldout(FoldoutArray[0], "General Settings", true);
 
-            if (FoldoutArray[0])
-            {
+            if (FoldoutArray[0]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("RaycastViewType"),
                     new GUIContent("Raycast View Type :", "Raycast view type.\n" +
                     "First Person : Raycast origin come from camera center to forward.\n" +
@@ -1043,8 +899,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("RaycastOriginParent"),
                         new GUIContent("Raycast Virtual Reality Origin Parent :", "Custom transform on which the raycast will start."));
 
-                if (Target.RaycastLayer.value != 1)
-                {
+                if (Target.RaycastLayer.value != 1) {
                     EditorGUILayout.HelpBox("If you are set your own layer here, make you sure to add also this layer on all your pieces.\n" +
                         "Otherwise, the destruction and edit mode will ignoring these pieces.", MessageType.Warning);
                 }
@@ -1075,8 +930,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             FoldoutArray[1] = EditorGUILayout.Foldout(FoldoutArray[1], "Preview Settings", true);
 
-            if (FoldoutArray[1])
-            {
+            if (FoldoutArray[1]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewMovementType"), 
                     new GUIContent("Preview Movement Type :", "Preview movement type."));
 
@@ -1084,8 +938,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewSmoothTime"), 
                         new GUIContent("Preview Movement Smooth Time :", "Preview movement smooth time."));
 
-                if ((MovementType)serializedObject.FindProperty("PreviewMovementType").enumValueIndex == MovementType.Grid)
-                {
+                if ((MovementType)serializedObject.FindProperty("PreviewMovementType").enumValueIndex == MovementType.Grid) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewGridSize"), 
                         new GUIContent("Preview Grid Size :", "Grid size on which the preview will be moved."));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("PreviewGridOffset"),
@@ -1104,8 +957,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             FoldoutArray[2] = EditorGUILayout.Foldout(FoldoutArray[2], "Audios Settings", true);
 
-            if (FoldoutArray[2])
-            {
+            if (FoldoutArray[2]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("Source"),
                     new GUIContent("Audio Source :", "Audio source on which the audio clips will be played."));
 
@@ -1134,8 +986,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             FoldoutArray[3] = EditorGUILayout.Foldout(FoldoutArray[3], "Add-ons Settings", true);
 
-            if (FoldoutArray[3])
-            {
+            if (FoldoutArray[3]) {
                 AddonInspector.DrawAddons(Target, AddonTarget.BuilderBehaviour);
             }
 
