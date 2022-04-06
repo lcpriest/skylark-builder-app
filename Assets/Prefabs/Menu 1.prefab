@@ -39,13 +39,16 @@ RectTransform:
   - {fileID: 3694491801328640460}
   - {fileID: 1694648299368963483}
   - {fileID: 6523509860970680552}
+  - {fileID: 1493916827784364638}
+  - {fileID: 7632535994864198847}
+  - {fileID: 3984531980558926401}
   m_Father: {fileID: 6508020193886282675}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 239.75, y: 112}
-  m_SizeDelta: {x: 479.5, y: 224}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &6780181991637101593
 Animator:
@@ -276,7 +279,7 @@ MonoBehaviour:
     Buttons:
     - Icon: {fileID: 21300000, guid: 22e1263ebfc144cc189c4c1862154721, type: 3}
       Order: 6
-      Text: Modular Wall
+      Text: Wall
       Description: 
       Action:
         m_PersistentCalls:
@@ -290,12 +293,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Wall
+              m_StringArgument: Wall
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: eb9f123a8704247c085c6c6a7525a840, type: 3}
       Order: 1
-      Text: Modular Window
+      Text: Window
       Description: 
       Action:
         m_PersistentCalls:
@@ -309,12 +312,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Window
+              m_StringArgument: Window
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: f83ae4d37129b4043a60185b4121d088, type: 3}
       Order: 2
-      Text: Modular Doorway
+      Text: Doorway
       Description: 
       Action:
         m_PersistentCalls:
@@ -328,12 +331,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Doorway
+              m_StringArgument: Doorway
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: ee525b7accf2545abb33cf534fdee351, type: 3}
       Order: 3
-      Text: Modular Corner
+      Text: Corner
       Description: 
       Action:
         m_PersistentCalls:
@@ -348,7 +351,7 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Corner
+              m_StringArgument: Corner
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 04cb66c9004bd5c4db33d46de567a959, type: 3}
@@ -401,7 +404,7 @@ MonoBehaviour:
     Buttons:
     - Icon: {fileID: 21300000, guid: e326a8d1c8df34ffc92184cf0034e855, type: 3}
       Order: 0
-      Text: Modular Floor
+      Text: Floor
       Description: 
       Action:
         m_PersistentCalls:
@@ -415,12 +418,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Floor
+              m_StringArgument: Floor
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 4969171fd5ba24c9494aa4637b96c07d, type: 3}
       Order: 1
-      Text: Modular End
+      Text: End
       Description: 
       Action:
         m_PersistentCalls:
@@ -435,7 +438,7 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building End
+              m_StringArgument: End
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 04cb66c9004bd5c4db33d46de567a959, type: 3}
@@ -1091,6 +1094,37 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &5195525629842388577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7632535994864198847}
+  m_Layer: 0
+  m_Name: Walls - S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7632535994864198847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195525629842388577}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5740478416516552668}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5612761869787036399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,6 +1395,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7248199843452546512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493916827784364638}
+  m_Layer: 0
+  m_Name: Walls - M
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1493916827784364638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248199843452546512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5740478416516552668}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8035534316745431112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,3 +1502,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8640858445501314546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3984531980558926401}
+  m_Layer: 0
+  m_Name: Walls - XL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3984531980558926401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640858445501314546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5740478416516552668}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -38,7 +38,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public float EditActionDelay = 0.1f;
 
         public DemoInputActions.BuildingActions building;
-        public DemoInputActions.UIActions userInteraface;
+        public DemoInputActions.UIActions userInterface;
 
         private DemoInputActions Inputs;
 
@@ -77,7 +77,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             Inputs = new DemoInputActions();
             building = Inputs.Building;
-            userInteraface = Inputs.UI;
+            userInterface = Inputs.UI;
         }
 
         public virtual void Update()

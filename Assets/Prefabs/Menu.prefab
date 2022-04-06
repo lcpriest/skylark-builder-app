@@ -189,7 +189,7 @@ MonoBehaviour:
     Buttons:
     - Icon: {fileID: 21300000, guid: e326a8d1c8df34ffc92184cf0034e855, type: 3}
       Order: 0
-      Text: Modular Floor
+      Text: Floor
       Description: 
       Action:
         m_PersistentCalls:
@@ -203,12 +203,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Floor
+              m_StringArgument: Floor
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 4969171fd5ba24c9494aa4637b96c07d, type: 3}
       Order: 1
-      Text: Modular End
+      Text: End
       Description: 
       Action:
         m_PersistentCalls:
@@ -223,7 +223,7 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building End
+              m_StringArgument: End
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 04cb66c9004bd5c4db33d46de567a959, type: 3}
@@ -252,7 +252,7 @@ MonoBehaviour:
     Buttons:
     - Icon: {fileID: 21300000, guid: 22e1263ebfc144cc189c4c1862154721, type: 3}
       Order: 6
-      Text: Modular Wall
+      Text: Wall
       Description: 
       Action:
         m_PersistentCalls:
@@ -266,12 +266,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Wall
+              m_StringArgument: Wall
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: eb9f123a8704247c085c6c6a7525a840, type: 3}
       Order: 1
-      Text: Modular Window
+      Text: Window
       Description: 
       Action:
         m_PersistentCalls:
@@ -285,12 +285,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Window
+              m_StringArgument: Window
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: f83ae4d37129b4043a60185b4121d088, type: 3}
       Order: 2
-      Text: Modular Doorway
+      Text: Doorway
       Description: 
       Action:
         m_PersistentCalls:
@@ -304,12 +304,12 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Doorway
+              m_StringArgument: Doorway
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: ee525b7accf2545abb33cf534fdee351, type: 3}
       Order: 3
-      Text: Modular Corner
+      Text: Corner
       Description: 
       Action:
         m_PersistentCalls:
@@ -324,7 +324,7 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: Modular Building Corner
+              m_StringArgument: Corner
               m_BoolArgument: 0
             m_CallState: 2
     - Icon: {fileID: 21300000, guid: 04cb66c9004bd5c4db33d46de567a959, type: 3}

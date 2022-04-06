@@ -1252,7 +1252,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e326a8d1c8df34ffc92184cf0034e855, type: 3}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Text
-      value: Modular Floor
+      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[1].Icon
@@ -1260,7 +1260,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4969171fd5ba24c9494aa4637b96c07d, type: 3}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[1].Text
-      value: Modular End
+      value: End
       objectReference: {fileID: 0}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[0].Icon
@@ -1432,11 +1432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Modular Building Floor
+      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Modular Building End
+      value: End
       objectReference: {fileID: 0}
     - target: {fileID: 8575145356558383731, guid: 948f142fb3889490c838fac12ae9ab5c, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

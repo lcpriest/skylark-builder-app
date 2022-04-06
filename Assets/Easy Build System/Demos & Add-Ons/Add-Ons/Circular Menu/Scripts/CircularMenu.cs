@@ -21,25 +21,21 @@ using UnityEngine.XR;
 
 using UnityEngine.UI;
 
-namespace EasyBuildSystem.Addons.CircularMenu.Scripts
-{
-    public class CircularMenu : MonoBehaviour
-    {
+namespace EasyBuildSystem.Addons.CircularMenu.Scripts {
+    public class CircularMenu : MonoBehaviour {
         #region Fields
 
         public static CircularMenu Instance;
 
         [Serializable]
-        public class UICustomCategory
-        {
+        public class UICustomCategory {
             public string Name;
             public GameObject Content;
             public List<CircularButtonData> Buttons = new List<CircularButtonData>();
             public List<CircularButton> InstancedButtons = new List<CircularButton>();
         }
 
-        public enum ControllerType
-        {
+        public enum ControllerType {
             KeyboardAndMouse,
             Android,
             Gamepad,
@@ -88,21 +84,16 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
         #region Methods
 
-        private void Awake()
-        {
+        private void Awake() {
             Instance = this;
         }
 
-        private void Start()
-        {
-            for (int i = 0; i < Categories.Count; i++)
-            {
-                if (Categories[i].Content != null)
-                {
+        private void Start() {
+            for (int i = 0; i < Categories.Count; i++) {
+                if (Categories[i].Content != null) {
                     Categories[i].Buttons = Categories[i].Buttons.OrderBy(o => o.Order).ToList();
 
-                    for (int x = 0; x < Categories[i].Buttons.Count; x++)
-                    {
+                    for (int x = 0; x < Categories[i].Buttons.Count; x++) {
                         CircularButton Button = Instantiate(CircularButton, Categories[i].Content.transform);
 
                         if (Button.Icon != null)
@@ -119,23 +110,21 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
             ChangeCategory(Categories[0].Name);
 
 #if EBS_NEW_INPUT_SYSTEM
-            BuilderInput.Instance.userInteraface.CircularMenu.performed += ctx => { Show(); };
-            BuilderInput.Instance.userInteraface.CircularMenu.canceled += ctx => { Hide(); };
+            BuilderInput.Instance.userInterface.CircularMenu.performed += ctx => { Show(); };
+            BuilderInput.Instance.userInterface.CircularMenu.canceled += ctx => { Hide(); };
 #endif
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (!Application.isPlaying)
                 return;
 
 #if EBS_NEW_INPUT_SYSTEM
-            if (BuilderInput.Instance.userInteraface.Cancel.triggered)
+            if (BuilderInput.Instance.userInterface.Cancel.triggered)
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
 #else
 
-            if (Input.GetKeyDown(KeyCode.Tab))
-            { 
+            if (Input.GetKeyDown(KeyCode.Tab)) {
                 if (!IsActive) 
                     Show();
                 else 
@@ -152,15 +141,13 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
             Selection.fillAmount = Mathf.Lerp(Selection.fillAmount, Fill, .2f);
 
 #if EBS_NEW_INPUT_SYSTEM
-            if (Controller == ControllerType.Gamepad)
-            {
-                Vector2 InputAxis = BuilderInput.Instance.userInteraface.Select.ReadValue<Vector2>();
+            if (Controller == ControllerType.Gamepad) {
+                Vector2 InputAxis = BuilderInput.Instance.userInterface.Select.ReadValue<Vector2>();
 
                 if (Mathf.Abs(InputAxis.x) > 0.25f || Mathf.Abs(InputAxis.y) > 0.25f)
                     CurrentRotation = Mathf.Atan2(InputAxis.x, InputAxis.y) * 57.29578f;
             }
-            else if (Controller == ControllerType.XR)
-            {
+            else if (Controller == ControllerType.XR) {
 #if EBS_XR
                 UnityEngine.XR.InputDevice Device = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
                 Device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 InputAxis);
@@ -169,8 +156,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
                     CurrentRotation = Mathf.Atan2(InputAxis.x, InputAxis.y) * 57.29578f;
 #endif
             }
-            else if (Controller == ControllerType.KeyboardAndMouse || Controller == ControllerType.Android)
-            {
+            else if (Controller == ControllerType.KeyboardAndMouse || Controller == ControllerType.Android) {
                 Vector3 BoundsScreen = new Vector3((float)Screen.width / 2f, (float)Screen.height / 2f, 0f);
                 Vector3 RelativeBounds = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0f) - BoundsScreen;
                 CurrentRotation = Mathf.Atan2(RelativeBounds.x, RelativeBounds.y) * 57.29578f;
@@ -190,14 +176,12 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             GameObject Nearest = null;
 
-            for (int i = 0; i < Elements; i++)
-            {
+            for (int i = 0; i < Elements; i++) {
                 GameObject InstancedButton = CurrentCategory.InstancedButtons[i].gameObject;
                 InstancedButton.transform.localScale = Vector3.one;
                 float Rotation = Convert.ToSingle(InstancedButton.name);
 
-                if (Mathf.Abs(Rotation - CurrentRotation) < Average)
-                {
+                if (Mathf.Abs(Rotation - CurrentRotation) < Average) {
                     Nearest = InstancedButton;
                     Average = Mathf.Abs(Rotation - CurrentRotation);
                 }
@@ -207,8 +191,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
             float CursorRotation = -(Convert.ToSingle(SelectedButton.name) - Selection.fillAmount * 360f / 2f);
             Selection.transform.localRotation = Quaternion.Slerp(Selection.transform.localRotation, Quaternion.Euler(0, 0, CursorRotation), 15f * Time.deltaTime);
 
-            for (int i = 0; i < Elements; i++)
-            {
+            for (int i = 0; i < Elements; i++) {
                 CircularButton Button = CurrentCategory.InstancedButtons[i].GetComponent<CircularButton>();
 
                 if (Button.gameObject != SelectedButton)
@@ -223,16 +206,14 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
             SelectionDescription.text = SelectedButton.GetComponent<CircularButton>().Description;
 
 #if EBS_NEW_INPUT_SYSTEM
-            if (BuilderInput.Instance.userInteraface.Validate.triggered)
-            {
+            if (BuilderInput.Instance.userInterface.Validate.triggered) {
                 if (SelectedButton.GetComponent<CircularButton>().GetComponent<Animator>() != null)
                     SelectedButton.GetComponent<CircularButton>().GetComponent<Animator>().Play("Button Press");
 
                 SelectedButton.GetComponent<CircularButton>().Action.Invoke();
             }
 #else
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 if (SelectedButton.GetComponent<CircularButton>().GetComponent<Animator>() != null)
                     SelectedButton.GetComponent<CircularButton>().GetComponent<Animator>().Play("Button Press");
 
@@ -241,19 +222,16 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 #endif
         }
 
-        private void RefreshButtons()
-        {
+        private void RefreshButtons() {
             Elements = CurrentCategory.InstancedButtons.Count;
 
-            if (Elements > 0)
-            {
+            if (Elements > 0) {
                 Fill = 1f / (float)Elements;
 
                 float FillRadius = Fill * 360f;
                 float LastRotation = 0;
 
-                for (int i = 0; i < Elements; i++)
-                {
+                for (int i = 0; i < Elements; i++) {
                     GameObject Temp = CurrentCategory.InstancedButtons[i].gameObject;
 
                     float Rotate = LastRotation + FillRadius / 2;
@@ -275,8 +253,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
         /// <summary>
         /// This method allows to change of category by name.
         /// </summary>
-        public void ChangeCategory(string name)
-        {
+        public void ChangeCategory(string name) {
             DefaultCategoryIndex = Categories.ToList().FindIndex(entry => entry.Content.name == name);
 
             if (DefaultCategoryIndex == -1)
@@ -284,10 +261,8 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             CurrentCategory = Categories[DefaultCategoryIndex];
 
-            for (int i = 0; i < Categories.Count; i++)
-            {
-                if (Categories[i].Content != null)
-                {
+            for (int i = 0; i < Categories.Count; i++) {
+                if (Categories[i].Content != null) {
                     if (i != DefaultCategoryIndex)
                         Categories[i].Content.SetActive(false);
                     else
@@ -301,8 +276,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
         /// <summary>
         /// This method allows to change mode.
         /// </summary>
-        public void ChangeMode(string modeName)
-        {
+        public void ChangeMode(string modeName) {
             Hide();
 
             BuilderBehaviour.Instance.ChangeMode(modeName);
@@ -311,8 +285,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
         /// <summary>
         /// This method allows to pass in placement mode with a piece name.
         /// </summary>
-        public void ChangePiece(string name)
-        {
+        public void ChangePiece(string name) {
             Hide();
 
             BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
@@ -324,15 +297,13 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
         /// <summary>
         /// This method allows to show the circular menu.
         /// </summary>
-        protected void Show()
-        {
+        protected void Show() {
             Animator.CrossFade(ShowStateName, 0.1f);
 
             for (int i = 0; i < DisableComponentsWhenShown.Length; i++)
                 DisableComponentsWhenShown[i].enabled = false;
 
-            if (Controller != ControllerType.XR)
-            {
+            if (Controller != ControllerType.XR) {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
@@ -343,15 +314,13 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
         /// <summary>
         /// This method allows to close the circular menu.
         /// </summary>
-        protected void Hide()
-        {
+        protected void Hide() {
             Animator.CrossFade(HideStateName, 0.1f);
 
             for (int i = 0; i < DisableComponentsWhenShown.Length; i++)
                 DisableComponentsWhenShown[i].enabled = true;
 
-            if (Controller != ControllerType.XR)
-            {
+            if (Controller != ControllerType.XR) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
@@ -378,8 +347,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
         #region Methods
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             InspectorStyles.DrawSectionLabel("Circular Menu - Add-On");
@@ -390,8 +358,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             FoldoutArray[0] = EditorGUILayout.Foldout(FoldoutArray[0], "General Settings", true);
 
-            if (FoldoutArray[0])
-            {
+            if (FoldoutArray[0]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("Controller"), 
                     new GUIContent("Input Controller Type :", "Input type to control the circular menu."));
 
@@ -408,8 +375,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             FoldoutArray[1] = EditorGUILayout.Foldout(FoldoutArray[1], "UI References Settings", true);
 
-            if (FoldoutArray[1])
-            {
+            if (FoldoutArray[1]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("SelectionText"), new GUIContent("Selection Name :", ""));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("SelectionDescription"), new GUIContent("Selection Description :", ""));
 
@@ -433,16 +399,14 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             FoldoutArray[2] = EditorGUILayout.Foldout(FoldoutArray[2], "Categories Settings", true);
 
-            if (FoldoutArray[2])
-            {
+            if (FoldoutArray[2]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("DefaultCategoryIndex"), new GUIContent("Default Category Index :", ""));
 
                 GUI.color = Color.black / 4f;
                 GUILayout.BeginVertical("helpBox");
                 GUI.color = Color.white;
 
-                for (int i = 0; i < Target.Categories.Count; i++)
-                {
+                for (int i = 0; i < Target.Categories.Count; i++) {
                     GUI.color = Color.black / 4f;
                     GUILayout.BeginVertical("helpBox");
                     GUI.color = Color.white;
@@ -457,16 +421,11 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
                     EditorGUILayout.PropertyField(ButtonsProperty, true);
                     GUILayout.EndHorizontal();
 
-                    if (GUILayout.Button("Convert All Pieces To Buttons..."))
-                    {
-                        if (BuildManager.Instance != null)
-                        {
-                            if (BuildManager.Instance.Pieces != null)
-                            {
-                                for (int x = 0; x < BuildManager.Instance.Pieces.Count; x++)
-                                {
-                                    Target.Categories[i].Buttons.Add(new CircularButtonData()
-                                    {
+                    if (GUILayout.Button("Convert All Pieces To Buttons...")) {
+                        if (BuildManager.Instance != null) {
+                            if (BuildManager.Instance.Pieces != null) {
+                                for (int x = 0; x < BuildManager.Instance.Pieces.Count; x++) {
+                                    Target.Categories[i].Buttons.Add(new CircularButtonData() {
                                         Icon = BuildManager.Instance.Pieces[x].Icon,
                                         Order = x,
                                         Text = BuildManager.Instance.Pieces[x].Name,
@@ -480,8 +439,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
                         }
                     }
 
-                    if (GUILayout.Button("Remove Category"))
-                    {
+                    if (GUILayout.Button("Remove Category")) {
                         if (Target.transform.Find(Target.Categories[i].Name) != null)
                             DestroyImmediate(Target.transform.Find(Target.Categories[i].Name).gameObject);
 
@@ -499,8 +457,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
                 CategoryName = EditorGUILayout.TextField("Category Name :", CategoryName);
 
-                if (GUILayout.Button("Add New Category"))
-                {
+                if (GUILayout.Button("Add New Category")) {
                     GameObject NewContent = new GameObject(CategoryName);
                     NewContent.transform.SetParent(Target.transform, false);
                     NewContent.transform.localPosition = Vector3.zero;
@@ -517,8 +474,7 @@ namespace EasyBuildSystem.Addons.CircularMenu.Scripts
 
             FoldoutArray[3] = EditorGUILayout.Foldout(FoldoutArray[3], "Animator Settings", true);
 
-            if (FoldoutArray[3])
-            {
+            if (FoldoutArray[3]) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("Animator"), new GUIContent("Circular Animator :", ""));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("ShowStateName"), new GUIContent("Circular Show State Name :", ""));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("HideStateName"), new GUIContent("Circular Hide State Name :", ""));
