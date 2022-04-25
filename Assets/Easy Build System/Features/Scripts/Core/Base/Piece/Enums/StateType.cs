@@ -6,6 +6,7 @@
         Queue,
         Remove,
         Edit,
-        Placed
+        Placed,
+        Save
     }
 }

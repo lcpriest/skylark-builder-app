@@ -6,6 +6,7 @@
         None,
         Placement,
         Destruction,
-        Edit
+        Edit,
+        Save
     }
 }

@@ -287,6 +287,14 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""30d9b4ad-f67d-484f-9a70-48203917ffa9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -608,6 +616,39 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Placement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""869c97ed-3440-48f0-98ce-f71937c70d37"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ded14e99-c85b-4997-9be6-d0a20814d479"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5e3466f-6a75-49bb-863c-016382f22e96"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -850,6 +891,7 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
         m_Building_Rotate = m_Building.FindAction("Rotate", throwIfNotFound: true);
         m_Building_Cancel = m_Building.FindAction("Cancel", throwIfNotFound: true);
         m_Building_Switch = m_Building.FindAction("Switch", throwIfNotFound: true);
+        m_Building_Save = m_Building.FindAction("Save", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CircularMenu = m_UI.FindAction("CircularMenu", throwIfNotFound: true);
@@ -979,6 +1021,7 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_Rotate;
     private readonly InputAction m_Building_Cancel;
     private readonly InputAction m_Building_Switch;
+    private readonly InputAction m_Building_Save;
     public struct BuildingActions
     {
         private @DemoInputActions m_Wrapper;
@@ -990,6 +1033,7 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
         public InputAction @Rotate => m_Wrapper.m_Building_Rotate;
         public InputAction @Cancel => m_Wrapper.m_Building_Cancel;
         public InputAction @Switch => m_Wrapper.m_Building_Switch;
+        public InputAction @Save => m_Wrapper.m_Building_Save;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1020,6 +1064,9 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
                 @Switch.started -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSwitch;
                 @Switch.performed -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSwitch;
                 @Switch.canceled -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSwitch;
+                @Save.started -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_BuildingActionsCallbackInterface.OnSave;
             }
             m_Wrapper.m_BuildingActionsCallbackInterface = instance;
             if (instance != null)
@@ -1045,6 +1092,9 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
                 @Switch.started += instance.OnSwitch;
                 @Switch.performed += instance.OnSwitch;
                 @Switch.canceled += instance.OnSwitch;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
             }
         }
     }
@@ -1149,6 +1199,7 @@ public partial class @DemoInputActions : IInputActionCollection2, IDisposable
         void OnRotate(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

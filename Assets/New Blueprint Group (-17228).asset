@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685956fc3b27b4648a1106849a878670, type: 3}
+  m_Name: New Blueprint Group (-17228)
+  m_EditorClassIdentifier: 
+  Model:
+    Pieces:
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: -0.36819792
+        Y: 0
+        Z: 7.2392797
+      Rotation:
+        X: -0
+        Y: 0
+        Z: 0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: -0.36819005
+        Y: 0
+        Z: 1.8032782
+      Rotation:
+        X: -0
+        Y: 179.99983
+        Z: -0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 0.83179384
+        Y: 0
+        Z: 7.2392817
+      Rotation:
+        X: -0
+        Y: -0.00016733963
+        Z: 0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 0.83181757
+        Y: 0
+        Z: 1.8032799
+      Rotation:
+        X: -0
+        Y: 179.99966
+        Z: -0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 2.031786
+        Y: 0
+        Z: 7.239287
+      Rotation:
+        X: -0
+        Y: -0.0003312642
+        Z: 0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 2.031825
+        Y: 0
+        Z: 1.8032856
+      Rotation:
+        X: -0
+        Y: 179.9995
+        Z: -0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 3.231778
+        Y: 0
+        Z: 7.239296
+      Rotation:
+        X: -0
+        Y: -0.0004951887
+        Z: 0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 3.2318327
+        Y: 0
+        Z: 1.8032944
+      Rotation:
+        X: -0
+        Y: 179.99934
+        Z: -0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+    - Id: 5
+      Name: Floor - M
+      SkinIndex: 0
+      Parent: 
+      Position:
+        X: 4.43177
+        Y: 0
+        Z: 7.239308
+      Rotation:
+        X: -0
+        Y: -0.00066594343
+        Z: 0
+      Scale:
+        X: 1
+        Y: 1
+        Z: 1
+      Properties: []
+  Data: "{\n    \"Items\": [\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": -0.3681979179382324,\n               
+    \"Y\": 0.0,\n                \"Z\": 7.239279747009277\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": 0.0,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": -0.36819005012512209,\n               
+    \"Y\": 0.0,\n                \"Z\": 1.8032782077789307\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": 179.9998321533203,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 0.8317938446998596,\n               
+    \"Y\": 0.0,\n                \"Z\": 7.23928165435791\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": -0.00016733963275328279,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 0.8318175673484802,\n               
+    \"Y\": 0.0,\n                \"Z\": 1.8032798767089844\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": 179.99966430664063,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 2.0317859649658205,\n               
+    \"Y\": 0.0,\n                \"Z\": 7.23928689956665\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": -0.000331264192936942,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 2.031825065612793,\n               
+    \"Y\": 0.0,\n                \"Z\": 1.8032855987548829\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": 179.99949645996095,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 3.2317779064178469,\n               
+    \"Y\": 0.0,\n                \"Z\": 7.239295959472656\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": -0.0004951886949129403,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 3.23183274269104,\n               
+    \"Y\": 0.0,\n                \"Z\": 1.8032944202423096\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": 179.9993438720703,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        },\n        {\n            \"Id\": \"5\",\n           
+    \"Name\": \"Floor - M\",\n            \"SkinIndex\": 0,\n            \"Parent\":
+    \"\",\n            \"Position\": {\n                \"X\": 4.431769847869873,\n               
+    \"Y\": 0.0,\n                \"Z\": 7.239307880401611\n            },\n           
+    \"Rotation\": {\n                \"X\": 0.0,\n                \"Y\": -0.0006659434293396771,\n               
+    \"Z\": 0.0\n            },\n            \"Scale\": {\n                \"X\":
+    1.0,\n                \"Y\": 1.0,\n                \"Z\": 1.0\n            },\n           
+    \"Properties\": []\n        }\n    ]\n}"
+  SourceSceneName: '[Desktop] First Person - Circular Menu Demo'

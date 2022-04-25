@@ -32,6 +32,10 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public bool ResetModeAfterDestruction = false;
         public float DestructionActionDelay = 0.1f;
 
+        public bool UseSaveMode = true;
+        public bool ResetModeAfterSave = false;
+        public float SaveActionDelay = 0.1f;
+
         public bool UseEditMode = true;
         public bool ResetModeAfterEdit = false;
         public float EditActionDelay = 0.1f;
@@ -85,6 +89,10 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             if (UseDestructionMode && building.Destruction.triggered) {
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Destruction);
+            }
+
+            if (UseSaveMode && building.Save.triggered) {
+                BuilderBehaviour.Instance.ChangeMode(BuildMode.Save);
             }
 
             if (UseEditMode && building.Edition.triggered) {
@@ -152,6 +160,23 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                             BuilderBehaviour.Instance.DestroyPrefab();
 
                             if (ResetModeAfterDestruction)
+                                BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
+                        }
+                    }
+                }
+
+                if (building.Cancel.triggered) {
+                    BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
+                }
+            }
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save) {
+                if (building.Validate.triggered) {
+                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null) {
+                        if (Time.time > SaveActionDelay + LastActionTime) {
+                            LastActionTime = Time.time;
+                            BuilderBehaviour.Instance.DestroyPrefab();
+
+                            if (ResetModeAfterSave)
                                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                         }
                     }
@@ -242,6 +267,11 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public bool ResetModeAfterDestruction = false;
         public float DestructionActionDelay = 0.1f;
 
+        public bool UseSaveMode = true;
+        public KeyCode SaveModeKey = KeyCode.P;
+        public bool ResetModeAfterSave = false;
+        public float SaveActionDelay = 0.1f;
+
         public bool UseEditMode = true;
         public KeyCode EditModeKey = KeyCode.T;
         public bool ResetModeAfterEdit = false;
@@ -286,6 +316,9 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             if (Input.GetKeyDown(DestructionModeKey) && UseDestructionMode)
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Destruction);
+
+            if (Input.GetKeyDown(SaveModeKey) && UseSaveMode)
+                BuilderBehaviour.Instance.ChangeMode(BuildMode.Save);
 
             if (Input.GetKeyDown(EditModeKey) && UseEditMode)
                 BuilderBehaviour.Instance.ChangeMode(BuildMode.Edit);
@@ -346,6 +379,22 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                             BuilderBehaviour.Instance.DestroyPrefab();
 
                             if (ResetModeAfterDestruction)
+                                BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
+                        }
+                    }
+                }
+
+                if (Input.GetKeyDown(CancelActionKey))
+                    BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
+            }
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save) {
+                if (Input.GetKeyDown(ValidateActionKey)) {
+                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null) {
+                        if (Time.time > SaveActionDelay + LastActionTime) {
+                            LastActionTime = Time.time;
+                            BuilderBehaviour.Instance.SaveGroup();
+
+                            if (ResetModeAfterSave)
                                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                         }
                     }
@@ -505,6 +554,26 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("ResetModeAfterDestruction"),
                         new GUIContent("Reset Mode After Destruction :", "Reset the placement mode after a piece is destroyed."));
+
+                    EditorGUI.indentLevel = 0;
+                }
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("UseSaveMode"),
+                    new GUIContent("Use Save Keyboard Shortcut :", "Use Save mode."));
+
+                if (serializedObject.FindProperty("UseSaveMode").boolValue) {
+                    EditorGUI.indentLevel = 1;
+
+#if !EBS_NEW_INPUT_SYSTEM
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("SaveModeKey"),
+                        new GUIContent("Save Mode Key :", "Input key to pass in Save mode."));
+#endif
+
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("SaveActionDelay"),
+                        new GUIContent("Save Interval :", "Delay in milliseconds after a piece is destroyed."));
+
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("ResetModeAfterSave"),
+                        new GUIContent("Reset Mode After Save :", "Reset the placement mode after a piece is destroyed."));
 
                     EditorGUI.indentLevel = 0;
                 }

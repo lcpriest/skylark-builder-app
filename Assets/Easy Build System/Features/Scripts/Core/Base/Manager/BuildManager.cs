@@ -210,6 +210,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Manager
             Destroy(piece.gameObject);
         }
 
+        /// <summary>
+        /// This method allows to destroy a piece.
+        /// </summary>
+        public void SaveGroup(PieceBehaviour part) {
+            // FileSaver.SaveFile(part.Group.gameObject, group.gameObject.ToString);
+        }
 
         /// <summary>
         /// This method allows to check if the collider is a buildable surface.

@@ -9,6 +9,7 @@ public class Demo_UI_AndroidControls : MonoBehaviour
     public GameObject BuildContent;
     public Button BuildButton;
     public Button DestructionButton;
+    public Button SaveButton;
     public Button ValidateButton;
     public Button CancelButton;
     public Button RotateButton;
@@ -33,6 +34,13 @@ public class Demo_UI_AndroidControls : MonoBehaviour
             BuildContent.SetActive(true);
         });
 
+        SaveButton.onClick.AddListener(() =>
+        {
+            BuilderBehaviour.Instance.ChangeMode(BuildMode.Save);
+
+            BuildContent.SetActive(true);
+        });
+
         ValidateButton.onClick.AddListener(() =>
         {
             if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Placement)
@@ -41,6 +49,8 @@ public class Demo_UI_AndroidControls : MonoBehaviour
                 BuilderBehaviour.Instance.DestroyPrefab();
             else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit)
                 BuilderBehaviour.Instance.EditPrefab();
+            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save)
+                BuilderBehaviour.Instance.SaveGroup();
         });
 
         CancelButton.onClick.AddListener(() =>

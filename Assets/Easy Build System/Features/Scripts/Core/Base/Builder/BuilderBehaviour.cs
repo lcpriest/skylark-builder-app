@@ -95,6 +95,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public AudioSource Source;
         public AudioClip[] PlacementClips;
         public AudioClip[] DestructionClips;
+        public AudioClip[] SaveClips;
         public AudioClip[] EditionClips;
 
         public BuildMode CurrentMode { get; set; }
@@ -106,9 +107,11 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         public PieceBehaviour CurrentPreview { get; set; }
         public PieceBehaviour CurrentEditionPreview { get; set; }
         public PieceBehaviour CurrentRemovePreview { get; set; }
+        public PieceBehaviour CurrentSavePreview { get; set; }
 
         public bool AllowPlacement { get; set; }
         public bool AllowDestruction { get; set; }
+        public bool AllowSave { get; set; }
         public bool AllowEdition { get; set; }
 
         public GroupBehaviour NearestGroup { get; set; }
@@ -161,6 +164,8 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             }
             else if (CurrentMode == BuildMode.Destruction)
                 UpdateRemovePreview();
+            else if (CurrentMode == BuildMode.Save)
+                UpdateSavePreview();
             else if (CurrentMode == BuildMode.Edit)
                 UpdateEditionPreview();
             else if (CurrentMode == BuildMode.None)
@@ -686,6 +691,97 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         }
 
         #endregion Destruction
+
+        #region Save
+
+        /// <summary>
+        /// This method allows to update the Save preview.
+        /// </summary>
+        public void UpdateSavePreview() {
+            float Distance = RaycastMaxDistance == 0 ? RaycastActionDistance : RaycastMaxDistance;
+
+            if (CurrentSavePreview != null) {
+                if (CurrentSavePreview.CurrentState != StateType.Save)
+                    CurrentSavePreview.ChangeState(StateType.Save);
+
+                AllowPlacement = false;
+            }
+
+            if (Physics.Raycast(GetRay, out RaycastHit Hit, Distance, RaycastLayer)) {
+                PieceBehaviour part = Hit.collider.GetComponentInParent<PieceBehaviour>();
+
+                if (part != null) {
+                    if (CurrentSavePreview != null) {
+                        if (CurrentSavePreview.GetInstanceID() != part.GetInstanceID()) {
+                            ClearSavePreview();
+
+                            CurrentSavePreview = part;
+                        }
+                    }
+                    else {
+                        CurrentSavePreview = part;
+                    }
+                }
+                else {
+                    ClearSavePreview();
+                }
+            }
+            else {
+                ClearSavePreview();
+            }
+        }
+
+        /// <summary>
+        /// This method allows to check the internal Save conditions.
+        /// </summary>
+        public bool CheckSaveConditions() {
+            if (CurrentSavePreview == null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// This method allows to Save the current preview.
+        /// </summary>
+        public virtual void SaveGroup() {
+            AllowSave = CheckSaveConditions();
+
+            if (!AllowSave) {
+                return;
+            }
+
+            BuildManager.Instance.SaveGroup(CurrentSavePreview);
+
+            if (Source != null) {
+                if (SaveClips.Length != 0) {
+                    Source.PlayOneShot(SaveClips[UnityEngine.Random.Range(0, SaveClips.Length)]);
+                }
+            }
+
+            CurrentSocket = null;
+            LastSocket = null;
+            AllowSave = false;
+            HasSocket = false;
+        }
+
+        /// <summary>
+        /// This method allows to clear the current Save preview.
+        /// </summary>
+        public virtual void ClearSavePreview() {
+            if (CurrentSavePreview == null) {
+                return;
+            }
+
+            CurrentSavePreview.ChangeState(CurrentSavePreview.LastState);
+
+            AllowSave = false;
+
+            CurrentSavePreview = null;
+        }
+
+        #endregion Save
 
         #region Edit
 
