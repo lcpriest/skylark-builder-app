@@ -62,6 +62,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
 
         public Color PreviewAllowedColor = new Color(0.0f, 1.0f, 0, 0.5f);
         public Color PreviewDeniedColor = new Color(1.0f, 0, 0, 0.5f);
+        public Color PreviewSaveColor = new Color(1.0f, 1.0f, 0, 0.5f);
 
         public List<ConditionBehaviour> Conditions = new List<ConditionBehaviour>();
 
@@ -399,6 +400,43 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Piece
                 for (int i = 0; i < Sockets.Length; i++) {
                     Sockets[i].EnableSocketCollider();
                     Sockets[i].gameObject.SetActive(true);
+                }
+            }
+            else if (state == StateType.Save)
+            {
+                gameObject.ChangeAllMaterialsInChildren(Renderers.ToArray(), PreviewMaterial);
+                gameObject.ChangeAllMaterialsColorInChildren(Renderers.ToArray(), PreviewSaveColor);
+
+                for (int i = 0; i < PreviewDisableObjects.Length; i++)
+                {
+                    if (PreviewDisableObjects[i])
+                    {
+                        PreviewDisableObjects[i].SetActive(false);
+                    }
+                }
+
+                for (int i = 0; i < PreviewDisableBehaviours.Length; i++)
+                {
+                    if (PreviewDisableBehaviours[i])
+                    {
+                        PreviewDisableBehaviours[i].enabled = false;
+                    }
+                }
+
+                EnableAllColliders();
+
+                for (int i = 0; i < PreviewDisableColliders.Length; i++)
+                {
+                    if (PreviewDisableColliders[i])
+                    {
+                        PreviewDisableColliders[i].enabled = false;
+                    }
+                }
+
+                for (int i = 0; i < Sockets.Length; i++)
+                {
+                    Sockets[i].DisableSocketCollider();
+                    Sockets[i].gameObject.SetActive(false);
                 }
             }
 

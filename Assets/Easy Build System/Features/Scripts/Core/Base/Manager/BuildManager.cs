@@ -213,8 +213,13 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Manager
         /// <summary>
         /// This method allows to destroy a piece.
         /// </summary>
-        public void SaveGroup(PieceBehaviour part) {
+        public void SaveGroup(GroupBehaviour group) {
             // FileSaver.SaveFile(part.Group.gameObject, group.gameObject.ToString);
+            group.Pieces.ForEach(piece =>
+            {
+                piece.ChangeState(StateType.Placed);
+            });
+            GroupExporter.ExportGroupAsFile(group);
         }
 
         /// <summary>

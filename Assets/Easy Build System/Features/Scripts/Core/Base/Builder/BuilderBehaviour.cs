@@ -702,7 +702,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
 
             if (CurrentSavePreview != null) {
                 if (CurrentSavePreview.CurrentState != StateType.Save)
-                    CurrentSavePreview.ChangeState(StateType.Save);
+                {
+                    CurrentSavePreview.Group.Pieces.ForEach(piece =>
+                    {
+                        piece.ChangeState(StateType.Save);
+                    });
+                }
 
                 AllowPlacement = false;
             }
@@ -752,7 +757,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 return;
             }
 
-            BuildManager.Instance.SaveGroup(CurrentSavePreview);
+            BuildManager.Instance.SaveGroup(CurrentSavePreview.Group);
 
             if (Source != null) {
                 if (SaveClips.Length != 0) {
@@ -773,8 +778,11 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             if (CurrentSavePreview == null) {
                 return;
             }
-
-            CurrentSavePreview.ChangeState(CurrentSavePreview.LastState);
+            
+            CurrentSavePreview.Group.Pieces.ForEach(piece =>
+            {
+                piece.ChangeState(StateType.Placed);
+            });
 
             AllowSave = false;
 
@@ -894,6 +902,7 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                 ClearPreview();
                 ClearRemovePreview();
                 ClearEditPreview();
+                ClearSavePreview();
             }
 
             LastMode = CurrentMode;

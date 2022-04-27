@@ -171,10 +171,10 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
             }
             else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save) {
                 if (building.Validate.triggered) {
-                    if (BuilderBehaviour.Instance.CurrentRemovePreview != null) {
+                    if (BuilderBehaviour.Instance.CurrentSavePreview != null) {
                         if (Time.time > SaveActionDelay + LastActionTime) {
                             LastActionTime = Time.time;
-                            BuilderBehaviour.Instance.DestroyPrefab();
+                            BuilderBehaviour.Instance.SaveGroup();
 
                             if (ResetModeAfterSave)
                                 BuilderBehaviour.Instance.ChangeMode(BuildMode.None);

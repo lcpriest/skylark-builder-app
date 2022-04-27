@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44824743, g: 0.49827284, b: 0.5755819, a: 1}
+  m_IndirectSpecularColor: {r: 0.44824797, g: 0.49827367, b: 0.5755825, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -163,6 +163,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 507379385}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -185,6 +189,14 @@ PrefabInstance:
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[9].Buttons.Array.size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Icon
+      value: 
+      objectReference: {fileID: 21300000, guid: cc83691ec63d5e44a8759ba0fa106cda, type: 3}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Text
+      value: Save Mode
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Icon
@@ -387,6 +399,10 @@ PrefabInstance:
       value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Order
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Order
       value: 0
       objectReference: {fileID: 0}
@@ -483,6 +499,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Description
+      value: Go into save mode.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Description
       value: Medium
       objectReference: {fileID: 0}
@@ -525,6 +545,10 @@ PrefabInstance:
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Description
       value: Return to build menu.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.size
@@ -603,6 +627,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
@@ -678,6 +706,10 @@ PrefabInstance:
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 237886314}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -755,6 +787,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 237886314}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -829,6 +865,10 @@ PrefabInstance:
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Action.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeMode
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Action.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -931,6 +971,10 @@ PrefabInstance:
       value: ChangeCategory
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EasyBuildSystem.Addons.CircularMenu.Scripts.CircularMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Action.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: EasyBuildSystem.Addons.CircularMenu.Scripts.CircularMenu, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -989,6 +1033,10 @@ PrefabInstance:
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Action.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: EasyBuildSystem.Addons.CircularMenu.Scripts.CircularMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Save
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[3].Buttons.Array.data[0].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1097,6 +1145,10 @@ PrefabInstance:
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: Categories.Array.data[0].Buttons.Array.data[2].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2956001599543495616, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: Categories.Array.data[4].Buttons.Array.data[1].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2010,6 +2062,9 @@ MonoBehaviour:
   UseDestructionMode: 1
   ResetModeAfterDestruction: 0
   DestructionActionDelay: 0
+  UseSaveMode: 1
+  ResetModeAfterSave: 0
+  SaveActionDelay: 0.1
   UseEditMode: 1
   ResetModeAfterEdit: 0
   EditActionDelay: 0
@@ -2048,6 +2103,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4efa8e865fbfaf941bd2f67483bfe95a, type: 3}
   DestructionClips:
   - {fileID: 8300000, guid: bac29142263eb764db7fd3f033402538, type: 3}
+  SaveClips: []
   EditionClips:
   - {fileID: 8300000, guid: 23689ed2eef343f44be4c7b2a5c73ca6, type: 3}
   - {fileID: 8300000, guid: 4efa8e865fbfaf941bd2f67483bfe95a, type: 3}
