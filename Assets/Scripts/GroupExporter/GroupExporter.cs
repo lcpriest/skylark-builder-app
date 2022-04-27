@@ -142,7 +142,7 @@ public class GroupExporter
                 Texture2D decompressed = DeCompress(materialList[key].mainTexture);
                 byte[] imgData = decompressed.EncodeToPNG();
 #if UNITY_WEBGL && !UNITY_EDITOR
-            //DownloadBinaryFile($"{modelName}_{materialList[key].name}.png", imgData, imgData.Length);
+                DownloadBinaryFile($"{modelName}_{materialList[key].name}.png", imgData, imgData.Length);
 #elif UNITY_EDITOR
                 File.WriteAllBytes($"{Application.dataPath}/{modelName}_{materialList[key].name}.png", imgData);
 #endif
@@ -162,8 +162,8 @@ public class GroupExporter
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR        
-        //DownloadTextFile($"{modelName}.OBJ", meshData_OBJ);
-        //DownloadTextFile($"{modelName}.MTL", mtlData);
+        DownloadTextFile($"{modelName}.OBJ", meshData_OBJ);
+        DownloadTextFile($"{modelName}.MTL", mtlData);
 #elif UNITY_EDITOR
         // Export as file for testing.
         File.WriteAllText($"{Application.dataPath}/{modelName}.OBJ", meshData_OBJ);        
@@ -192,10 +192,10 @@ public class GroupExporter
         return readableText;
     }
 #if UNITY_WEBGL && !UNITY_EDITOR
-    //[DllImport("__Internal")]
-    //private static extern void DownloadTextFile(string fileName, string data);
+    [DllImport("__Internal")]
+    private static extern void DownloadTextFile(string fileName, string data);
     
-    //[DllImport("__Internal")]
-    //private static extern void DownloadBinaryFile(string fileName, byte[] dataPtr, int dataSize);
+    [DllImport("__Internal")]
+    private static extern void DownloadBinaryFile(string fileName, byte[] dataPtr, int dataSize);
 #endif
 }

@@ -6,8 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Easy Build System/Demos & Add-Ons/Add-Ons/Circular Menu/[Desktop]
-      First Person - Circular Menu Demo.unity
-    guid: da38b4e94dd228f41a1f664cb71022d0
+    path: Assets/Scenes/Main Scene.unity
+    guid: 15828bb0838ca450e8b7ab4f4716e101
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cc6f2372079d6425097fbefa9366a0db, type: 2}
