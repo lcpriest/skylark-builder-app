@@ -48,11 +48,12 @@ public class GroupExporter
         Dictionary<string, ObjMaterial> materialList = new Dictionary<string, ObjMaterial>();
 
         // Convert all mesh data into string data in OBJ format.
-        string meshData_OBJ = $"mtllib {modelName}.mtl \n";
+        //string meshData_OBJ = $"mtllib {modelName}.mtl \n";
+        StringBuilder meshStringBuilder = new StringBuilder();
+        meshStringBuilder.Append($"mtllib {modelName}.mtl \n");
 
         foreach (MeshFilter meshFilter in groupMeshes)
-        {
-            StringBuilder meshStringBuilder = new StringBuilder();
+        {            
             Mesh mesh = meshFilter.sharedMesh;
             Material[] mats = meshFilter.GetComponent<Renderer>().sharedMaterials;
             
@@ -125,10 +126,10 @@ public class GroupExporter
 
             vertexOffset += mesh.vertices.Length;
             normalOffset += mesh.normals.Length;
-            uvOffset += mesh.uv.Length;
-
-            meshData_OBJ += meshStringBuilder.ToString();
+            uvOffset += mesh.uv.Length;            
         }
+        Debug.Log("Getting string from StringBuilder");
+        //meshData_OBJ += meshStringBuilder.ToString();
 
         // Generate the .MTL file for materials.
         string mtlData = "";
@@ -162,11 +163,11 @@ public class GroupExporter
         }
 
 #if UNITY_WEBGL && !UNITY_EDITOR        
-        DownloadTextFile($"{modelName}.OBJ", meshData_OBJ);
+        DownloadTextFile($"{modelName}.OBJ", meshStringBuilder.ToString());
         DownloadTextFile($"{modelName}.MTL", mtlData);
 #elif UNITY_EDITOR
         // Export as file for testing.
-        File.WriteAllText($"{Application.dataPath}/{modelName}.OBJ", meshData_OBJ);        
+        File.WriteAllText($"{Application.dataPath}/{modelName}.OBJ", meshStringBuilder.ToString());        
         // Export .MTL file.
         File.WriteAllText($"{Application.dataPath}/{modelName}.MTL", mtlData);          
 #endif
