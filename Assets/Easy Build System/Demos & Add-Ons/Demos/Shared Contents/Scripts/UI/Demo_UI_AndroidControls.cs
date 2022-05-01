@@ -49,8 +49,8 @@ public class Demo_UI_AndroidControls : MonoBehaviour
                 BuilderBehaviour.Instance.DestroyPrefab();
             else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Edit)
                 BuilderBehaviour.Instance.EditPrefab();
-            else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save)
-                BuilderBehaviour.Instance.SaveGroup();
+            //else if (BuilderBehaviour.Instance.CurrentMode == BuildMode.Save)
+            //    BuilderBehaviour.Instance.SaveGroup();
         });
 
         CancelButton.onClick.AddListener(() =>

@@ -16,14 +16,14 @@ public class GroupExporter
         public Texture2D mainTexture;
     }
 
-    public static void ExportGroupAsFile(GroupBehaviour group)
+    public static void ExportGroupAsFile(GroupBehaviour group, string fileName)
     {
-        ExportGroupAsOBJFile(group);
+        ExportGroupAsOBJFile(group, fileName);
     }
 
-    static void ExportGroupAsOBJFile(GroupBehaviour group)
+    static void ExportGroupAsOBJFile(GroupBehaviour group, string fileName)
     {
-        string modelName = "EXPORTED";
+        string modelName = fileName;
 
         // Get a list of all mesh filters in children.
         List<MeshFilter> groupMeshes = new List<MeshFilter>(group.GetComponentsInChildren<MeshFilter>());

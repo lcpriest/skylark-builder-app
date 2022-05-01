@@ -174,10 +174,12 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
                     if (BuilderBehaviour.Instance.CurrentSavePreview != null) {
                         if (Time.time > SaveActionDelay + LastActionTime) {
                             LastActionTime = Time.time;
-                            BuilderBehaviour.Instance.SaveGroup();
 
-                            if (ResetModeAfterSave)
-                                BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
+                            // Open confirmation dialog
+                            ConfirmationDialog.Instance.ShowDialog();
+
+                            //if (ResetModeAfterSave)
+                            //    BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
                         }
                     }
                 }
