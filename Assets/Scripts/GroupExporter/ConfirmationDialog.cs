@@ -63,7 +63,7 @@ public class ConfirmationDialog : MonoBehaviour
     public void OnConfirmExport()
     {
         Debug.Log("OnConfirmExport");
-        ShowDialog(false);
+        
 
         GroupExporter.ExportFileType fileType = GroupExporter.ExportFileType.NONE;
 
@@ -74,7 +74,12 @@ public class ConfirmationDialog : MonoBehaviour
         else if (typeSelected.Contains("STL"))
             fileType = GroupExporter.ExportFileType.STL;
 
-        BuilderBehaviour.Instance.SaveGroup(m_Input.GetComponent<TMP_InputField>().text, fileType);
+        string fileName = m_Input.GetComponent<TMP_InputField>().text;
+        if (fileName != "")
+        {
+            BuilderBehaviour.Instance.SaveGroup(fileName, fileType);
+            ShowDialog(false);
+        }
     }
 
     public void OnCancelExport()
