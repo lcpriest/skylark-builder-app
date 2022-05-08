@@ -12,6 +12,7 @@ public class ConfirmationDialog : MonoBehaviour
 
     public GameObject m_Dialog;
     public GameObject m_Input;
+    public GameObject m_TypeDropDown;
 
     // Start is called before the first frame update
     void Awake()
@@ -63,8 +64,17 @@ public class ConfirmationDialog : MonoBehaviour
     {
         Debug.Log("OnConfirmExport");
         ShowDialog(false);
-        
-        BuilderBehaviour.Instance.SaveGroup(m_Input.GetComponent<TMP_InputField>().text);
+
+        GroupExporter.ExportFileType fileType = GroupExporter.ExportFileType.NONE;
+
+        TMP_Dropdown dropdown = m_TypeDropDown.GetComponent<TMP_Dropdown>();
+        string typeSelected = dropdown.options[dropdown.value].text;
+        if (typeSelected.Contains("OBJ"))
+            fileType = GroupExporter.ExportFileType.OBJ;
+        else if (typeSelected.Contains("STL"))
+            fileType = GroupExporter.ExportFileType.STL;
+
+        BuilderBehaviour.Instance.SaveGroup(m_Input.GetComponent<TMP_InputField>().text, fileType);
     }
 
     public void OnCancelExport()

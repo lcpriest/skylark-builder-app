@@ -750,14 +750,14 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Builder
         /// <summary>
         /// This method allows to Save the current preview.
         /// </summary>
-        public virtual void SaveGroup(string fileName) {
+        public virtual void SaveGroup(string fileName, GroupExporter.ExportFileType fileType) {
             AllowSave = CheckSaveConditions();
 
             if (!AllowSave) {
                 return;
             }
 
-            BuildManager.Instance.SaveGroup(CurrentSavePreview.Group, fileName);
+            BuildManager.Instance.SaveGroup(CurrentSavePreview.Group, fileName, fileType);
 
             BuilderBehaviour.Instance.ChangeMode(BuildMode.None);
 

@@ -1242,9 +1242,49 @@ PrefabInstance:
       propertyPath: Categories.Array.data[9].Buttons.Array.data[4].Action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3274733196787734143, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3984531980558926401, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: m_RootOrder
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.16037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.16037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.16037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280887593
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459257464969501460, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6053574943256346625, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: m_Name
@@ -1350,9 +1390,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6877678833299194327, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_Name
+      value: Message
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877678833299194327, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7632535994864198847, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702010109435066712, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34bd6faddf2c84b4fb3f288f906fbb65, type: 3}

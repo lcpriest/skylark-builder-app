@@ -213,13 +213,13 @@ namespace EasyBuildSystem.Features.Scripts.Core.Base.Manager
         /// <summary>
         /// This method allows to save a group as a model file.
         /// </summary>
-        public void SaveGroup(GroupBehaviour group, string fileName) {
+        public void SaveGroup(GroupBehaviour group, string fileName, GroupExporter.ExportFileType fileType) {
             // FileSaver.SaveFile(part.Group.gameObject, group.gameObject.ToString);
             group.Pieces.ForEach(piece =>
             {
                 piece.ChangeState(StateType.Placed);
             });
-            GroupExporter.ExportGroupAsFile(group, fileName);
+            GroupExporter.ExportGroupAsFile(group, fileName, fileType);
         }
 
         /// <summary>
